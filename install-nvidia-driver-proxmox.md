@@ -9,15 +9,49 @@ Since DKMS modules are compiled individually on users own machines, it is not po
 
 Instead, modules built using DKMS will be signed using a Machine Owner Key (MOK), which by default is located at /var/lib/dkms/mok.key with the corresponding public key at /var/lib/dkms/mok.pub
 
-# Install dkms.
-The NVIDIA driver installer will check for the presence of DKMS on your system. If DKMS is found, you will be given the option of registering the kernel module with DKMS. On most systems with DKMS, DKMS will take care of automatically rebuilding registered kernel modules when installing a different Linux kernel. This is typically done by hooks that Linux distributions set up to be triggered as part of the kernel installation process. If your system is not configured to automatically run DKMS to rebuild kernel modules after installing a different kernel, you may run dkms autoinstall to trigger the process manually.
-```
-apt install dkms
+# Blacklist the open source nouveau kernel module 
+You want to blacklist the open source nouveau kernel module to avoid it from interfering with the one from NVIDIA.
 
-```
+Run the below command to verify if Nouveau is loaded:
+
+    lsmod | grep nouveau
+Follow the below steps to disable Nouveau:
+
+    cat <<EOF | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
+    blacklist nouveau
+    options nouveau modeset=0
+    EOF
+
+After changing anything modules related, you need to refresh your initramfs. On Proxmox VE this can be done by executing:
+
+    update-initramfs -u -k all
+And reboot your system:
+
+    sudo reboot
+
+# Removal of the current CUDA nvidia driver
+Check the current CUDA and nvidia-driver
+
+    dpkg -l | grep nvidia
+    dpkg -l | grep cuda
+Removal of the current CUDA nvidia driver
+
+    sudo apt purge --auto-remove nvidia-*
+    sudo apt purge --auto-remove cuda-*
+# Before installing, we need to install bellow packages
+    apt install build-essential
+    apt install proxmox-headers-$(uname -r)
+    apt install software-properties-common
+    apt install dkms
+
+|Package|Description|
+|---|---|
+|build-essential|to install `gcc`, required by Nvidia driver|
+|proxmox-headers-$(uname -r)|Linux kernel headers package required for Nvidia driver. The NVIDIA kernel module has a kernel interface layer that must be compiled specifically for each kernel|
+|software-properties-common|to use `add-apt-repository` command|
+|dkms|registering the kernel module with DKMS|
+
 # Automatic Signing of DKMS-Generated Kernel Modules for Secure Boot
-https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9
-
 If secure boot is enabled, kernels may require that kernel modules be cryptographically signed by a key trusted by the kernel in order to be loaded.
 In order to sign the kernel module, you will need a private signing key, and an X.509 certificate for the corresponding public key. The X.509 certificate must be trusted by the kernel before the module can be loaded: we recommend ensuring that the signing key be trusted before beginning the driver installation, so that the newly signed module can be used immediately
 ## Step 1. Generating a MOK and Enrolling It in Secure Boot
@@ -44,7 +78,6 @@ In order to sign the kernel module, you will need a private signing key, and an 
   - "Yes". 
   - Enter the password you set up just now. 
   - Select "OK" and the computer will reboot again.
-https://github.com/dell/dkms#secure-boot
 
 - After reboot, you should be able to see the new key with `cat /proc/keys | grep asymmetri` as root.
 
@@ -84,7 +117,6 @@ https://github.com/dell/dkms#secure-boot
     The script returns 0 when the signing succeeds and 1 when it fails. A non-zero return value will cause the DKMS build operation to fail. Corresponding message will be printed to `stderr`
 
 # Install Nvidia driver on Proxmox Host
-Download driver
 ```
 curl -O https://us.download.nvidia.com/XFree86/Linux-x86_64/550.142/NVIDIA-Linux-x86_64-550.142.run
 ```
@@ -96,38 +128,20 @@ Run
 ```
 ./NVIDIA-Linux-x86_64-550.142.run --dkms
 ```
-**NOTE 1**: If error `Unable to find the development tool `cc` in your path; please make sure that you have the package 'gcc' installed` shown, install bellow package
-```
-apt install build-essential 
-```
-**NOTE 2**: If error `The nouveau kernel driver is currently in use by your system. This driver is incompatible with NVIDIA driver, and must be disabled before proceeding` shown, you want to blacklist the open source nouveau kernel module to avoid it from interfering with the one from NVIDIA.
-```
-echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
-```
-After changing anything modules related, you need to refresh your initramfs. On Proxmox VE this can be done by executing:
-```
-update-initramfs -u -k all
-```
-After updating initramfs, ensure that the changes take effect by rebooting your system.
-To check if the modules are being loaded
-```
-lsmod | grep nouveau
-```
-**NOTE 3**: If error `unable to find the kernel source tree for the currently running kernel` shown, then install bellow package
-```
-apt install proxmox-headers-$(uname -r)
-```
 
-## On GUI
+On GUI
 - Choose `Sign the kernel module`
 - Choose `Use an existing key pair`
 - Enter private key path
 - Enter public key path
 - When `Can't find X library path`, ignore and select OK
-- When asked for register DKMS, select `YES`. DKMS will automatically build a new module if kernel changes later
-- When asked for rn nvidia-xconfig utility and backup pre-existing X configuration, select `YES`
+- When asked for register the kernel module sources with DKMS, select `YES`. DKMS will automatically build a new module if kernel changes later
+- When asked for `nvidia-xconfig` utility and backup pre-existing X configuration, select `NO` (since this is headless system)
 
-A reboot might be necessary at this point, after which the Nvidia drivers on the Proxmox host should now be installed. This can be confirmed by running:
+Reboot
+
+    sudo reboot
+Confirm Nvidia drivers on the Proxmox host should now be installed
 
     sudo nvidia-smi
 
@@ -147,3 +161,13 @@ To view loaded NVIDIA Modules
 
     kmod list | grep nvidia
     lsmod | grep nvidia
+
+Check enrolled MOK
+
+    mokutil --list-enrolled
+
+# Ref:
+- https://wiki.debian.org/NvidiaGraphicsDrivers
+- https://www.youtube.com/watch?v=lNGNRIJ708k
+- https://github.com/dell/dkms#secure-boot
+- https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9

@@ -56,3 +56,18 @@ iface enp0s5  inet static
 ```
 sudo systemctl restart networking.service
 ```
+
+## Apt
+Find package dependencies
+
+  apt-cache depends <package>
+
+Find package dependent
+
+  apt-cache rdepends <package>
+
+# Tools
+|Name|Description|
+|---|---|
+|btop|Resource monitor that shows usage and stats for processor, memory, disks, network and processes|
+|Nvtop|Task monitor for GPUs and accelerators|
