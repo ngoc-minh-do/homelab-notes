@@ -21,7 +21,7 @@ Paste at the bottom
 root:44:1
 root:104:1
 ```
-## Find Device Numbers. Focus on GPU device, something like `renderD128`
+## Find Device Numbers(major device, minor device number). Focus on GPU device, something like `renderD128`
 ```
 ls -l /dev/dri
 ```
@@ -53,3 +53,38 @@ lxc.idmap: g 108 100108 65428
 |lxc.idmap: g 45 100045 62|# map GIDs 45-106 (LXC namspace) to 100045-100106 (host namespace)<br /># 106 is the group before the render group (107) in LXC container<br /># 62 = 107 (render group in LXC) - 45 (start group for this mapping)|
 |lxc.idmap: g 107 103 1|# map GID 107 (render in LXC) to 103 (render on the host)|
 |Lxc.idmap: g 108 100108 65428|# map GIDs 108-65536 (LXC namspace) to 100108-165536 (host namespace)<br /># 108 is the group after the render group (107) in the LXC container<br /># 65428 = 65536 (max gid) - 108 (start group for this mapping)|
+
+## NVIDIA GPU
+https://yomis.blog/nvidia-gpu-in-proxmox-lxc/
+
+After install NVIDIA GPU on Host, additional devices need to be mapped in the container.
+
+List all NVIDIA GPU devices, determine major device, minor device number
+
+    ls -al /dev/nvidia*
+
+Then add below line to `/etc/pve/lxc/*.conf` to share those devices.
+**NOTE**: Modify GID corresponding to those devices
+
+    lxc.cgroup2.devices.allow: c 195:0 rwm
+    lxc.cgroup2.devices.allow: c 195:255 rwm
+    lxc.cgroup2.devices.allow: c 510:0 rwm
+    lxc.cgroup2.devices.allow: c 510:1 rwm
+    lxc.cgroup2.devices.allow: c 235:1 rwm
+    lxc.cgroup2.devices.allow: c 235:2 rwm
+    lxc.mount.entry: /dev/nvidia0 dev/nvidia0 none bind,optional,create=file
+    lxc.mount.entry: /dev/nvidiactl dev/nvidiactl none bind,optional,create=file
+    lxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file
+    lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
+    lxc.mount.entry: /dev/nvidia-caps/nvidia-cap1 dev/nvidia-caps/nvidia-cap1 none bind,optional,create=file
+    lxc.mount.entry: /dev/nvidia-caps/nvidia-cap2 dev/nvidia-caps/nvidia-cap2 none bind,optional,create=file
+
+**NOTE** `195:0` meaning "195" is the major device number, and "0" is the minor device number, uniquely identifying a particular device.
+
+With this all setup and the container rebooted, the same installer for the Nvidia drivers on the Proxmox host will need to be run on the container. To get the installer into the container, the following command can be used. I have put this in the root user directory of the container.
+
+    sudo pct push <VMID> /tmp/NVIDIA-Linux-x86_64-550.142.run /tmp/NVIDIA-Linux-x86_64-550.142.run
+All that is left to do is install the drivers again without the kernel modules because they have already been installed. Look up what `cgroup` is for more details on how this works - the LXC container shares the host's kernel.
+
+    sudo ./NVIDIA-Linux-x86_64-550.142.run --no-kernel-module
+Et voila. After the driver installation is complete, `nvidia-smi` can be run once more to confirm that things have been installed as expected.
