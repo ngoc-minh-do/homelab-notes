@@ -1,0 +1,133 @@
+name: media-download-servers
+
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - /docker/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - $BACKUP_DIR/jackett/config:/config
+      - $MEDIA_DIR/downloads:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - TZ=Asia/Tokyo
+    ports:
+      - 8191:8191
+    restart: unless-stopped 
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - /docker/radarr/config:/config
+      - $MEDIA_DIR/movies:/movies
+      - $MEDIA_DIR/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - /docker/sonarr/config:/config
+      - $MEDIA_DIR/tv-shows:/tv
+      - $MEDIA_DIR/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  nordlynx:
+    image: bubuntux/nordlynx:latest
+    container_name: nordlynx
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - TZ=Asia/Tokyo
+      - PRIVATE_KEY=$NORDVPN_PRIVATE_KEY
+      - COUNTRY_CODE=JP
+      - NET_LOCAL=192.168.0.0/24
+    ports:
+      - 8090:8090 # qbittorrent
+    restart: unless-stopped
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: linuxserver/qbittorrent:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+      - WEBUI_PORT=8090
+      - TORRENTING_PORT=6881
+    volumes:
+      - $BACKUP_DIR/qbittorrent/config:/config
+      - $MEDIA_DIR/downloads:/downloads
+    # ports:
+    #   - 8090:8090
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    restart: unless-stopped
+    network_mode: service:nordlynx
+    depends_on:
+      - nordlynx
+
+  sabnzbd:
+    image: linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - /docker/sabnzbd/config:/config
+      - $MEDIA_DIR/downloads:/downloads
+    ports:
+      - 8091:8080
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Tokyo
+    ports:
+      - 5055:5055
+    volumes:
+      - /docker/jellyseerr/config:/app/config
+    restart: unless-stopped
+
+networks:
+  media-downloader-network:
+    name: media-downloader-network

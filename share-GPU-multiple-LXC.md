@@ -28,7 +28,10 @@ lspci | grep VGA
 dev0: /dev/dri/card0,gid=44,uid=0
 dev1: /dev/dri/renderD128,gid=105,uid=0
 ```
+`44` is GID of `video` group, `105` is GID of `render` group in LXC, change it if needed.
+Reboot LXC and check group name in LXC, make sure it same as host
 
+    ls -l /dev/dri
 ## Install NVIDIA GPU in LXC
 After install NVIDIA GPU on Host, additional devices need to be mapped in the container.
 

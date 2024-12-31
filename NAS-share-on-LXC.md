@@ -26,7 +26,7 @@ mkdir -p /mnt/lxc_shares/nas_rwx
 Replace //NAS-IP-ADDRESS with your NAS IP
 Replace Username and Passwords
 ```
-//NAS-IP-ADDRESS/nas/ /mnt/lxc_shares/nas_rwx cifs _netdev,x-systemd.automount,noatime,uid=100000,gid=110000,dir_mode=0770,file_mode=0770,user=smb_username,pass=smb_password 0 0
+//NAS-IP-ADDRESS/nas/ /mnt/lxc_shares/nas_rwx cifs _netdev,x-systemd.automount,noatime,credentials=/root/.smbcredentials,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
 
 ```
 |Config|Description|
