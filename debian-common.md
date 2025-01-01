@@ -57,6 +57,10 @@ iface enp0s5  inet static
 sudo systemctl restart networking.service
 ```
 
+Perform traceroute using specific internet interface
+
+    traceroute -i eth0 google.com
+
 ## Apt
 Find package dependencies
 
