@@ -47,6 +47,7 @@ In proxmox Web, select your HA VM
 
 Finish Up
 - Start the VM
+- When `proxmox` logo showup, hit ESC, disable `secure boot`. Restart
 - Check the shell of the VM. If it booted up correctly, you should be greeted with the link to access the Web UI.
 - Navigate to <VM IP>:8123
 
