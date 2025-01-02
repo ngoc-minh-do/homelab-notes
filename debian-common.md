@@ -64,11 +64,11 @@ Perform traceroute using specific internet interface
 ## Apt
 Find package dependencies
 
-  apt-cache depends <package>
+    apt-cache depends <package>
 
 Find package dependent
 
-  apt-cache rdepends <package>
+    apt-cache rdepends <package>
 
 # Tools
 |Name|Description|
