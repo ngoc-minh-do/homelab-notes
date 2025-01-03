@@ -88,6 +88,20 @@ Server configuration file
 
 	Include /etc/ssh/sshd_config.d/*.conf
 
+Save client's public key to below file
+
+    vi /home/user_name/.ssh/authorized_keys
+
+Set
+
+    chmod 700 /home/user_name/.ssh && chmod 600 /home/user_name/.ssh/authorized_keys
+
+    chown -R username:username /home/username/.ssh
+
+Check log
+
+    journalctl -u ssh -n 50
+
 ### Disable password login
 Signing in as root is typically achieved by signing in as your normal user id then using `sudo`
 

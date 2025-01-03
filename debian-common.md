@@ -24,6 +24,11 @@ cat /etc/passwd
 cat /etc/group
 ```
 
+## Add user
+
+    sudo adduser alex
+Next, you will be prompted to provide the user’s password. Once you have provided and confirmed the password, you will be required to provide additional information about the user, such as full name, room number, work phone, and home phone. Fill in the information where applicable, or hit ENTER to skip.
+
 ## Apt
 Find package dependencies
 
