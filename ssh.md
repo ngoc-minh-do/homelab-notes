@@ -37,3 +37,77 @@ Options:
 |ECDSA|256 - 521|High|Very Fast|Digital Signatures|Smaller key size, high security.|Complex implementation.|
 |Ed25519|256|Very High|Very Fast|Digital Signatures|High security, fast, small keys.|Newer, not widely supported.|
 |SSH-1 (RSA)|768 - 2048|Low to Moderate|Slow|Secure Shell (SSH)|Initial SSH protocol.|Deprecated, vulnerable.|
+
+# ssh client
+
+		apt install openssh-client
+Client configuration file
+
+		/etc/ssh/ssh_config.d/*.conf
+
+Connect with password
+
+		ssh $remote_user@$remote_host
+
+Connect with private key
+
+		ssh -i '/path/to/keyfile' username@server
+## ssh server
+
+		apt install openssh-server
+Server configuration file
+
+		/etc/ssh/sshd_config.d/*.conf
+
+**NOTE**: Make sure bellow line exist in `/etc/ssh/sshd_config`
+
+		Include /etc/ssh/sshd_config.d/*.conf
+
+### Disable password login
+Signing in as root is typically achieved by signing in as your normal user id then using `sudo`
+
+- Create new config file, for example `disable_root_login.conf`
+
+		PasswordAuthentication no
+		ChallengeResponseAuthentication no
+		UsePAM no
+		PermitRootLogin no
+
+Where,
+- `ChallengeResponseAuthentication` – State whether challenge-response authentication is allowed or not via PAM.
+- `PasswordAuthentication` – Configure whether password authentication is allowed or not.
+- `UsePAM` – Enables the Pluggable Authentication Module interface. If set to yes this will enable PAM authentication using ChallengeResponseAuthentication and PasswordAuthentication in addition to PAM account and session module processing for all authentication types.
+- `PermitRootLogin` – Specifies whether root can log in using ssh or not.
+
+Reload
+
+		systemctl reload sshd
+		# CentOS
+		systemctl reload ssh #
+
+Authorized keys file location
+
+		~/.ssh/authorized_keys
+
+## sudo
+
+- `sudo`: Super User DO
+- `su`: Substitute User
+
+Switch to user. 
+
+	su - <user>
+	sudo -iu <user>
+
+Switch to root
+	su -
+	sudo -i
+
+**NOTE**: 
+- `sudo` uses the current users' password [default config]. `su` uses the password of the user you're [trying to] run as.
+- `sudo -i` keep inherit `env`
+
+Check current user
+
+	whoami
+
