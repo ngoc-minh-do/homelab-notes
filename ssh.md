@@ -40,38 +40,38 @@ Options:
 
 # ssh client
 
-		apt install openssh-client
+	apt install openssh-client
 Client configuration file
 
-		/etc/ssh/ssh_config.d/*.conf
+	/etc/ssh/ssh_config.d/*.conf
 
 Connect with password
 
-		ssh $remote_user@$remote_host
+	ssh $remote_user@$remote_host
 
 Connect with private key
 
-		ssh -i '/path/to/keyfile' username@server
+	ssh -i '/path/to/keyfile' username@server
 ## ssh server
 
-		apt install openssh-server
+	apt install openssh-server
 Server configuration file
 
-		/etc/ssh/sshd_config.d/*.conf
+	/etc/ssh/sshd_config.d/*.conf
 
 **NOTE**: Make sure bellow line exist in `/etc/ssh/sshd_config`
 
-		Include /etc/ssh/sshd_config.d/*.conf
+	Include /etc/ssh/sshd_config.d/*.conf
 
 ### Disable password login
 Signing in as root is typically achieved by signing in as your normal user id then using `sudo`
 
-- Create new config file, for example `disable_root_login.conf`
+Create new config file, for example `disable_root_login.conf`
 
-		PasswordAuthentication no
-		ChallengeResponseAuthentication no
-		UsePAM no
-		PermitRootLogin no
+    PasswordAuthentication no
+    ChallengeResponseAuthentication no
+    UsePAM no
+    PermitRootLogin no
 
 Where,
 - `ChallengeResponseAuthentication` – State whether challenge-response authentication is allowed or not via PAM.
@@ -81,13 +81,13 @@ Where,
 
 Reload
 
-		systemctl reload sshd
-		# CentOS
-		systemctl reload ssh #
+	systemctl reload sshd
+	# CentOS
+	systemctl reload ssh #
 
 Authorized keys file location
 
-		~/.ssh/authorized_keys
+	~/.ssh/authorized_keys
 
 ## sudo
 
