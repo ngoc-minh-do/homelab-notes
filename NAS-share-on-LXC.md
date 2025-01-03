@@ -15,7 +15,8 @@ groupadd -g 10000 lxc_shares
 ```
 usermod -aG lxc_shares USERNAME
 ```
-
+- `-a`: append
+- `-G`: list of groups
 ## On Proxmox Host
 Create a folder to mount the NAS
 ```

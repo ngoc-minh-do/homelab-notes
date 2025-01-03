@@ -94,9 +94,10 @@ Save client's public key to below file
 
 Set
 
-    chmod 700 /home/user_name/.ssh && chmod 600 /home/user_name/.ssh/authorized_keys
-
+    chmod 700 /home/user_name/.ssh
+    chmod 600 /home/user_name/.ssh/authorized_keys
     chown -R username:username /home/username/.ssh
+`-R` is recursive
 
 Check log
 
@@ -105,7 +106,7 @@ Check log
 ### Disable password login
 Signing in as root is typically achieved by signing in as your normal user id then using `sudo`
 
-Create new config file, for example `disable_root_login.conf`
+Create new config file, for example `/etc/ssh/sshd_config.d/disable_password_login.conf`
 
     PasswordAuthentication no
     ChallengeResponseAuthentication no
@@ -124,10 +125,6 @@ Reload
 	# CentOS
 	systemctl reload ssh #
 
-Authorized keys file location
-
-	~/.ssh/authorized_keys
-
 ## sudo
 
 - `sudo`: Super User DO
@@ -139,6 +136,7 @@ Switch to user.
 	sudo -iu <user>
 
 Switch to root
+
 	su -
 	sudo -i
 

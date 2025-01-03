@@ -26,9 +26,18 @@ cat /etc/group
 
 ## Add user
 
-    sudo adduser alex
+    sudo adduser username
 Next, you will be prompted to provide the user’s password. Once you have provided and confirmed the password, you will be required to provide additional information about the user, such as full name, room number, work phone, and home phone. Fill in the information where applicable, or hit ENTER to skip.
 
+Add user to `sudo` group
+
+    usermod -aG sudo username
+
+## Remove user
+
+    userdel -r username
+
+`-r` is for delete user's home directory and mail spool
 ## Apt
 Find package dependencies
 
