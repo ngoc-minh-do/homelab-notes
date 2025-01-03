@@ -40,7 +40,7 @@ This command will createa a tunnel that's accessible on `vscode.dev` from anywhe
 ## Option 3
 
 Install `Remote Development` extension package in Client' VSCode
-Connect to server by `ssh`
+Connect to server by `ssh`. VSCode will then automatically setup VSCode server.
 Navigate to project folder and run `code .`
 
 ## Ref

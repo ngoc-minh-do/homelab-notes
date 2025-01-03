@@ -1,5 +1,7 @@
 # ssh
 
+## ssh-keygen
+
     ssh-keygen -t ed25519 -C "your_email@example.com"
 
 Options:
@@ -38,7 +40,7 @@ Options:
 |Ed25519|256|Very High|Very Fast|Digital Signatures|High security, fast, small keys.|Newer, not widely supported.|
 |SSH-1 (RSA)|768 - 2048|Low to Moderate|Slow|Secure Shell (SSH)|Initial SSH protocol.|Deprecated, vulnerable.|
 
-# ssh client
+## ssh client
 
 	apt install openssh-client
 Client configuration file
@@ -51,7 +53,28 @@ Connect with password
 
 Connect with private key
 
-	ssh -i '/path/to/keyfile' username@server
+	ssh username@server -i '/path/to/keyfile'
+
+Connect with private key and ask to save authentication information to `ssh-agent`
+
+	ssh username@server -i '/path/to/keyfile' -o AddKeysToAgent=yes
+
+To check saved key
+
+    ssh-add -l
+
+Otherway is set it in `~/.ssh/config`.
+Other useful option is:
+
+    AddKeysToAgent yes              # as mention before
+    IdentityFile ~/.ssh/xxx         # to specific private key if needed
+    LogLevel DEBUG                  # to check log
+    UseKeychain yes                 # for mac
+
+**Ref**
+- https://man7.org/linux/man-pages/man1/ssh.1.html
+- https://man7.org/linux/man-pages/man5/ssh_config.5.html
+
 ## ssh server
 
 	apt install openssh-server
