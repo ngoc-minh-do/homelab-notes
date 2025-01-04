@@ -47,9 +47,12 @@ Removal of the current CUDA nvidia driver
 |Package|Description|
 |---|---|
 |build-essential|to install `gcc`, required by Nvidia driver|
-|proxmox-headers-$(uname -r)|Linux kernel headers package required for Nvidia driver. The NVIDIA kernel module has a kernel interface layer that must be compiled specifically for each kernel|
 |software-properties-common|to use `add-apt-repository` command|
+|proxmox-headers-$(uname -r)|Linux kernel headers package required for Nvidia driver. The NVIDIA kernel module has a kernel interface layer that must be compiled specifically for each kernel|
 |dkms|registering the kernel module with DKMS|
+
+Because the NVIDIA module is separate from the kernel, it must be rebuilt with Dynamic Kernel Module Support (DKMS) for each new kernel update.
+To set up DKMS, you must install the headers package for the kernel and the DKMS helper package.
 
 # Automatic Signing of DKMS-Generated Kernel Modules for Secure Boot
 If secure boot is enabled, kernels may require that kernel modules be cryptographically signed by a key trusted by the kernel in order to be loaded.
@@ -171,3 +174,4 @@ Check enrolled MOK
 - https://www.youtube.com/watch?v=lNGNRIJ708k
 - https://github.com/dell/dkms#secure-boot
 - https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9
+- https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE
