@@ -1,0 +1,83 @@
+mqtt:
+  enabled: False
+
+detectors:
+  nvidia-tensorrt:
+    type: tensorrt
+
+model:
+  path: /config/model_cache/tensorrt/yolov7-320.trt
+  input_tensor: nchw
+  input_pixel_format: rgb
+  width: 320
+  height: 320
+
+audio:
+  enabled: True
+  listen:
+    - bark
+    - fire_alarm
+    - scream
+    - speech
+    - yell
+    - crying
+
+ffmpeg:
+  hwaccel_args: preset-nvidia-h264
+  input_args: preset-rtsp-restream
+  output_args:
+    record: preset-record-generic-audio-copy
+
+detect:
+  enabled: True
+
+record:
+  enabled: True
+  retain:
+    days: 0
+    mode: all
+  events:
+    retain:
+      default: 30
+      mode: motion
+
+go2rtc:
+  rtsp:
+    username: "{FRIGATE_RESTREAM_RTSP_USERNAME}"
+    password: "{FRIGATE_RESTREAM_RTSP_PASSWORD}"
+  streams:
+    living_room:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream1
+      - "ffmpeg:living_room#audio=aac"
+      - tapo://FRIGATE_TAPO_PASSWORD@{FRIGATE_LIVING_CAMERA_IP}
+    living_room_sub:
+      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream2
+      - "ffmpeg:living_room_sub#audio=aac"
+  webrtc:
+    candidates:
+      - "{FRIGATE_IP}:8555"
+      - stun:8555
+
+cameras:
+  living_room:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/living_room
+          roles:
+            - record
+        - path: rtsp://127.0.0.1:8554/living_room_sub
+          roles:
+            - detect
+            - audio
+    onvif:
+      host: "{FRIGATE_LIVING_CAMERA_IP}"
+      port: 2020
+      user: "{FRIGATE_RTSP_USERNAME}"
+      password: "{FRIGATE_RTSP_PASSWORD}"
+version: 0.14
+camera_groups:
+  Birdseye:
+    order: 1
+    icon: LuBird
+    cameras: birdseye

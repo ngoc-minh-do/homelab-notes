@@ -14,9 +14,10 @@ On Docker host, testing by running bellow command
 
 ### If host is a LXC, below error might shown
 
-    stderr: Auto-detected mode as 'legacy' nvidia-container-cli: mount error: failed to add device rules: unable to find any existing device filters attached to the cgroup: bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted: unknown.
+    stderr: Auto-detected mode as 'legacy' 
+    nvidia-container-cli: mount error: failed to add device rules: unable to find any existing device filters attached to the cgroup: bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted: unknown.
 
-Set `no-cgroups=true` inside `/etc/nvidia-container-runtime/config.toml`
+To fix, set `no-cgroups=true` inside `/etc/nvidia-container-runtime/config.toml`
 
 ## Ref
 - https://docs.docker.com/engine/containers/resource_constraints/#gpu

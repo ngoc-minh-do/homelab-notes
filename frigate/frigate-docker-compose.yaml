@@ -23,11 +23,16 @@ services:
       - 8555:8555/tcp # WebRTC over tcp
       - 8555:8555/udp # WebRTC over udp
     environment:
+      FRIGATE_IP: $FRIGATE_IP
+      FRIGATE_RESTREAM_RTSP_USERNAME: $FRIGATE_RESTREAM_RTSP_USERNAME
+      FRIGATE_RESTREAM_RTSP_PASSWORD: $FRIGATE_RESTREAM_RTSP_PASSWORD
+      FRIGATE_RTSP_USERNAME: $FRIGATE_RTSP_USERNAME
       FRIGATE_RTSP_PASSWORD: $FRIGATE_RTSP_PASSWORD
+      FRIGATE_LIVING_CAMERA_IP: $FRIGATE_LIVING_CAMERA_IP
+      FRIGATE_TAPO_PASSWORD: $FRIGATE_TAPO_PASSWORD
     deploy: # NVIDIA GPU (need install NVIDIA Container Toolkit before deploy)
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1 # number of GPUs
               capabilities: [gpu]
