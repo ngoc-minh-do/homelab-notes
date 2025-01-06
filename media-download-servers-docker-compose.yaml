@@ -2,7 +2,7 @@ name: media-download-servers
 
 services:
   prowlarr:
-    image: linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -17,7 +17,7 @@ services:
       - media-downloader
 
   jackett:
-    image: linuxserver/jackett:latest
+    image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
     environment:
       - PUID=1000
@@ -33,7 +33,7 @@ services:
       - media-downloader
 
   flaresolverr:
-    image: flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     environment:
       - TZ=Asia/Tokyo
@@ -44,7 +44,7 @@ services:
       - media-downloader
 
   radarr:
-    image: linuxserver/radarr:latest
+    image: lscr.io/linuxserver/jackett:latest
     container_name: radarr
     environment:
       - PUID=1000
@@ -61,7 +61,7 @@ services:
       - media-downloader
 
   sonarr:
-    image: linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
       - PUID=1000
@@ -78,7 +78,7 @@ services:
       - media-downloader
 
   nordlynx:
-    image: bubuntux/nordlynx:latest
+    image: ghcr.io/bubuntux/nordlynx
     container_name: nordlynx
     cap_add:
       - NET_ADMIN
@@ -95,7 +95,7 @@ services:
 
   qbittorrent:
     container_name: qbittorrent
-    image: linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:latest
     environment:
       - PUID=1000
       - PGID=1000
@@ -115,7 +115,7 @@ services:
       - nordlynx
 
   sabnzbd:
-    image: linuxserver/sabnzbd:latest
+    image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     environment:
       - PUID=1000
