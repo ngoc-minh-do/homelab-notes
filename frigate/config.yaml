@@ -43,19 +43,19 @@ record:
 
 go2rtc:
   rtsp:
-    username: "{FRIGATE_RESTREAM_RTSP_USERNAME}"
-    password: "{FRIGATE_RESTREAM_RTSP_PASSWORD}"
+    username: "{FRIGATE_GO2RTC_RTSP_USERNAME}"
+    password: "{FRIGATE_GO2RTC_RTSP_PASSWORD}"
   streams:
     living_room:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream1
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream1
       - "ffmpeg:living_room#audio=aac"
-      - tapo://FRIGATE_TAPO_PASSWORD@{FRIGATE_LIVING_CAMERA_IP}
+      - tapo://{FRIGATE_TAPO_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}
     living_room_sub:
-      - rtsp://{FRIGATE_RTSP_USERNAME}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream2
+      - rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@{FRIGATE_LIVING_CAMERA_IP}:554/stream2
       - "ffmpeg:living_room_sub#audio=aac"
   webrtc:
     candidates:
-      - "{FRIGATE_IP}:8555"
+      - 192.168.x.x:8555 # <= Replace with your Frigate server's IP address
       - stun:8555
 
 cameras:
@@ -71,13 +71,15 @@ cameras:
             - detect
             - audio
     onvif:
-      host: "{FRIGATE_LIVING_CAMERA_IP}"
+      host: 192.168.x.x # <= Replace with your camera's IP address
       port: 2020
-      user: "{FRIGATE_RTSP_USERNAME}"
+      user: "{FRIGATE_RTSP_USER}"
       password: "{FRIGATE_RTSP_PASSWORD}"
-version: 0.14
+
 camera_groups:
   Birdseye:
     order: 1
     icon: LuBird
     cameras: birdseye
+
+version: 0.14
