@@ -44,7 +44,7 @@ services:
       - media-downloader
 
   radarr:
-    image: lscr.io/linuxserver/jackett:latest
+    image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
       - PUID=1000
@@ -77,8 +77,25 @@ services:
     networks:
       - media-downloader
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - /docker/bazarr/config:/config
+      - $MEDIA_DIR/movies:/movies
+      - $MEDIA_DIR/tv-shows:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    networks:
+      - media-downloader
+
   nordlynx:
-    image: ghcr.io/bubuntux/nordlynx
+    image: ghcr.io/bubuntux/nordlynx:latest
     container_name: nordlynx
     cap_add:
       - NET_ADMIN
