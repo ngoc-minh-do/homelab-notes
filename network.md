@@ -1,4 +1,4 @@
-# Network
+# Network on Linux
 
 ## Setup static ip
 
@@ -34,7 +34,7 @@ iface enp0s5  inet static
 sudo systemctl restart networking.service
 ```
 
-## Route
+## Trace route
   
 Perform traceroute using specific internet interface
 

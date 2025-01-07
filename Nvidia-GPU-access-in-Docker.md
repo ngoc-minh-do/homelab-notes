@@ -1,6 +1,6 @@
 # Nvidia GPU access in Docker container
 
-Install `NVIDIA Container Toolkit` on LXC
+Install `NVIDIA Container Toolkit` on Docker host
 
 - https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
 
@@ -12,7 +12,7 @@ On Docker host, testing by running bellow command
         --rm -it \
         nvidia/cuda:12.3.1-base-ubuntu20.04 nvidia-smi
 
-### If host is a LXC, below error might shown
+## If host is a LXC, below error might shown
 
     stderr: Auto-detected mode as 'legacy' 
     nvidia-container-cli: mount error: failed to add device rules: unable to find any existing device filters attached to the cgroup: bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted: unknown.

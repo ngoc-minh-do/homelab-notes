@@ -1,4 +1,6 @@
-# Using Coder code server
+# Code Server
+
+## Using Coder code server
 
 Install
 
@@ -20,16 +22,16 @@ To expose web to local network
 
     VSCODE_IPC_HOOK_CLI= code-server
 
-# Using VSCode 
+## Using VSCode 
 
-## Option 1
+### Option 1
 Run bellow command in server
 
     code serve-web --host=0.0.0.0 --port=8080 --without-connection-token
 
 Then we can access VSCode by browser `<server local ip>:8080` 
 
-## Option 2
+### Option 2
 
 Run bellow command
 
@@ -37,13 +39,13 @@ Run bellow command
 
 This command will createa a tunnel that's accessible on `vscode.dev` from anywhere
 
-## Option 3
+### Option 3
 
 Install `Remote Development` extension package in Client' VSCode
 Connect to server by `ssh`. VSCode will then automatically setup VSCode server.
 Navigate to project folder and run `code .`
 
-## Ref
+### Ref
 - https://coder.com/docs/code-server/install
 - https://code.visualstudio.com/docs/remote/vscode-server
 - https://code.visualstudio.com/docs/remote/tunnels

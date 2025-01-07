@@ -1,4 +1,4 @@
-# Debian
+# Debian common command
 
 ## Change timezone
 Check current time, timezone

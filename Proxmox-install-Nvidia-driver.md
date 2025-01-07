@@ -1,4 +1,6 @@
-# Debian SecureBoot
+# Install Nvidia driver on Proxmox with Secure Boot
+
+## Debian SecureBoot
 Has the system booted via Secure Boot?
 ```
 mokutil --sb-state
@@ -9,7 +11,7 @@ Since DKMS modules are compiled individually on users own machines, it is not po
 
 Instead, modules built using DKMS will be signed using a Machine Owner Key (MOK), which by default is located at /var/lib/dkms/mok.key with the corresponding public key at /var/lib/dkms/mok.pub
 
-# Blacklist the open source nouveau kernel module 
+## Blacklist the open source nouveau kernel module 
 You want to blacklist the open source nouveau kernel module to avoid it from interfering with the one from NVIDIA.
 
 Run the below command to verify if Nouveau is loaded:
@@ -29,7 +31,7 @@ And reboot your system:
 
     sudo reboot
 
-# Removal of the current CUDA nvidia driver
+## Removal of the current CUDA nvidia driver
 Check the current CUDA and nvidia-driver
 
     dpkg -l | grep nvidia
@@ -38,7 +40,7 @@ Removal of the current CUDA nvidia driver
 
     sudo apt purge --auto-remove nvidia-*
     sudo apt purge --auto-remove cuda-*
-# Before installing, we need to install bellow packages
+## Before installing, we need to install bellow packages
     apt install build-essential
     apt install proxmox-headers-$(uname -r)
     apt install software-properties-common
@@ -54,10 +56,10 @@ Removal of the current CUDA nvidia driver
 Because the NVIDIA module is separate from the kernel, it must be rebuilt with Dynamic Kernel Module Support (DKMS) for each new kernel update.
 To set up DKMS, you must install the headers package for the kernel and the DKMS helper package.
 
-# Automatic Signing of DKMS-Generated Kernel Modules for Secure Boot
+## Automatic Signing of DKMS-Generated Kernel Modules for Secure Boot
 If secure boot is enabled, kernels may require that kernel modules be cryptographically signed by a key trusted by the kernel in order to be loaded.
 In order to sign the kernel module, you will need a private signing key, and an X.509 certificate for the corresponding public key. The X.509 certificate must be trusted by the kernel before the module can be loaded: we recommend ensuring that the signing key be trusted before beginning the driver installation, so that the newly signed module can be used immediately
-## Step 1. Generating a MOK and Enrolling It in Secure Boot
+### Step 1. Generating a MOK and Enrolling It in Secure Boot
 - Start by becoming root with `sudo -i`.
 
 - Generate the key and certificate.
@@ -84,7 +86,7 @@ In order to sign the kernel module, you will need a private signing key, and an 
 
 - After reboot, you should be able to see the new key with `cat /proc/keys | grep asymmetri` as root.
 
-## Step 2. Configuring DKMS to Sign Newly-Built Modules Automatically with the MOK.
+### Step 2. Configuring DKMS to Sign Newly-Built Modules Automatically with the MOK.
 - To minimize human effort and troubleshooting, it's best to get the keys, config files and scripts in place before installing any actual drivers.
 
 - Create a text file `/etc/dkms/nvidia.conf`, or `/etc/dkms/<module-name>.conf` for other modules (with `<module-name>` part exactly matching the name of the module), which is a one-liner pointing to the signing script.
@@ -119,7 +121,7 @@ In order to sign the kernel module, you will need a private signing key, and an 
     
     The script returns 0 when the signing succeeds and 1 when it fails. A non-zero return value will cause the DKMS build operation to fail. Corresponding message will be printed to `stderr`
 
-# Install Nvidia driver on Proxmox Host
+## Install Nvidia driver on Proxmox Host
 ```
 curl -O https://us.download.nvidia.com/XFree86/Linux-x86_64/550.142/NVIDIA-Linux-x86_64-550.142.run
 ```
@@ -169,7 +171,7 @@ Check enrolled MOK
 
     mokutil --list-enrolled
 
-# Ref:
+## Ref:
 - https://wiki.debian.org/NvidiaGraphicsDrivers
 - https://www.youtube.com/watch?v=lNGNRIJ708k
 - https://github.com/dell/dkms#secure-boot
