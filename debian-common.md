@@ -47,7 +47,11 @@ Find package dependent
 
     apt-cache rdepends <package>
 
-# Tools
+## Get size of all files/directories in current directory
+
+    du -h --max-depth=1
+
+## Tools
 |Name|Description|
 |---|---|
 |btop|Resource monitor that shows usage and stats for processor, memory, disks, network and processes|

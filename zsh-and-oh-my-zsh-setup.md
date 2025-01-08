@@ -11,7 +11,7 @@ Confirm Installation:
     zsh --version
     cat /etc/shells
 
-Set `zsh` as Default Shell:
+Set `zsh` as Default Shell for current user or specific user:
 
     chsh -s $(which zsh) <optional:username>
 
@@ -24,7 +24,7 @@ Rollback to Bash (if needed):
     chsh -s /bin/bash <optional:username>
 
 ## Oh My Zsh
-Install
+Install for current user
 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 

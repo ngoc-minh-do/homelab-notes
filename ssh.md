@@ -55,9 +55,18 @@ Connect with private key
 
 	ssh username@server -i '/path/to/keyfile'
 
-Connect with private key and ask to save authentication information to `ssh-agent`
+Start SSH agent
+
+    eval "$(ssh-agent)"
+
+Connect with private key and save authentication information to `ssh-agent`
 
 	ssh username@server -i '/path/to/keyfile' -o AddKeysToAgent=yes
+
+Add your private key to SSH agent
+
+    ssh-add
+    ssh-add ~/.ssh/id_ed25519
 
 To check saved key
 
