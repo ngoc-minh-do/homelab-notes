@@ -38,7 +38,9 @@ Add user to `sudo` group
     userdel -r username
 
 `-r` is for delete user's home directory and mail spool
+
 ## Apt
+
 Find package dependencies
 
     apt-cache depends <package>
@@ -47,6 +49,22 @@ Find package dependent
 
     apt-cache rdepends <package>
 
+Remove package
+
+    apt remove <package-name>
+
+Remove package and its configuration
+
+    apt purge <package-name>
+
+To uninstall package and its dependencies
+
+    apt autoremove <package-name>
+
+To uninstall package and its dependencies and its configuration
+
+    apt autoremove --purge <package-name>
+    apt purge --autoremove <package-name>
 ## Get size of all files/directories in current directory
 
     du -h --max-depth=1

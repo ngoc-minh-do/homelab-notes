@@ -115,3 +115,22 @@ To clear all caches
 
 - https://python-poetry.org/docs/basic-usage/
 - https://python-poetry.org/docs/managing-environments/
+
+### Jupyter Notebook with Poetry
+
+Install Jupyter Notebook as Poetry dev dependency
+
+    poetry add -D notebook
+
+Run notebook in Virtual environment
+
+    poetry run jupyter notebook
+
+## Pip-autoremove
+
+When using `pip` to uninstall package, it only removes the specified package, it doesn't uninstall the dependencies packages. 
+
+To install package and it's dependencies, we use `pip3-autoremove`
+
+    pip install pip3-autoremove
+    pip3-autoremovev <package-name>
