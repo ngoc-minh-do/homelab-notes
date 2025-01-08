@@ -67,7 +67,7 @@ Initialising a pre-existing project
 
 The poetry env activate command prints the activate command of the virtual environment to the console. You can run the output command manually or feed it to the eval command of your shell to activate the environment. This way you won’t leave the current shell.
 
-    $ eval $(poetry env activate)
+    eval $(poetry env activate)
     
 Verify virtual environment activated
 
@@ -125,6 +125,9 @@ Install Jupyter Notebook as Poetry dev dependency
 Run notebook in Virtual environment
 
     poetry run jupyter notebook
+    # OR
+    eval $(poetry env activate)
+    jupyter notebook
 
 ## Pip-autoremove
 
