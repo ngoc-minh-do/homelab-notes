@@ -6,6 +6,8 @@
       [user]
         name = ngoc
         email = username@gmail.com
+      [alias]
+        log2 = log --all --graph --decorate --oneline --pretty=format:\"%C(auto)%d %h %C(reset)%s %C(red)| %C(cyan)%an %C(red)| %C(green)%ad\" --date=format:'%Y-%m-%d %H:%M:%S'
       [filter "lfs"]
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
