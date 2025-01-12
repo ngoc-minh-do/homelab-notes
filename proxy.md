@@ -50,12 +50,15 @@ Key aspects of reverse proxies include:
     Reverse proxies can cache static content, compress data, and optimize delivery to clients, reducing latency and bandwidth usage. They can also perform content rewriting or transformation to adapt content for different client devices or browsers.
 
 ### Software candidates
-- nginx
-- HAProxy
 - Traefik
+- HAProxy
 - Caddy
+- Nginx/Nginx Proxy Manager
+- Apache
 
-### Reverse proxy with SSL certificate
+### SSL Certificate Providers
+
+- Let's Encrypt 
 
 ## Ref
 - https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/
