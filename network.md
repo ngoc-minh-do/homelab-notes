@@ -69,3 +69,17 @@ To scan all hostname in local network use `avahi`
 - Run
 
       avahi-browse -art
+
+## Multicast DNS (mDNS)
+To setup mDNS
+
+    sudo apt install avahi-daemon
+    sudo systemctl start avahi-daemon
+    sudo systemctl enable avahi-daemon
+
+Then we can use `<hostname>.local` to access
+
+## Test connection to a website by fetching web content from CLI
+
+    curl -L $url
+    wget -O - $url
