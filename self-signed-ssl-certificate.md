@@ -1,4 +1,4 @@
-# Creating a Self-Signed TLS Certificate With OpenSSL
+# Creating a Self-Signed SSL Certificate With OpenSSL
 
 TLS/SSL functions by a combination of a public certificate and a private key. The SSL key is kept secret on the server and encrypts content sent to clients. The SSL certificate is publicly shared with anyone requesting the content. It can be used to decrypt the content signed by the associated SSL key.
 
@@ -35,3 +35,5 @@ If `You cannot visit right now because the website uses HSTS` error shown, consi
 ## Ref:
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu
 - https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-certificate-using-openssl
+- https://youtu.be/VH4gXcvkmOY?si=st5uPlRC7QnF1L1N
+- https://www.youtube.com/watch?v=EnY6fSng3Ew

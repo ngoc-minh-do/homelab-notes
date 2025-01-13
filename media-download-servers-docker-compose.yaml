@@ -4,6 +4,8 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -17,6 +19,8 @@ services:
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -31,6 +35,8 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
+    networks:
+      - proxy
     environment:
       - TZ=Asia/Tokyo
     ports:
@@ -40,6 +46,8 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -55,6 +63,8 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -70,6 +80,8 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -85,6 +97,8 @@ services:
   nordlynx:
     image: ghcr.io/bubuntux/nordlynx:latest
     container_name: nordlynx
+    networks:
+      - proxy
     cap_add:
       - NET_ADMIN
     environment:
@@ -120,6 +134,8 @@ services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
+    networks:
+      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -134,6 +150,8 @@ services:
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
+    networks:
+      - proxy
     environment:
       - LOG_LEVEL=debug
       - TZ=Asia/Tokyo
@@ -142,3 +160,7 @@ services:
     volumes:
       - /docker/jellyseerr/config:/app/config
     restart: unless-stopped
+
+networks:
+  proxy:
+    external: true

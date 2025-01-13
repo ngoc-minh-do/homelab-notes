@@ -72,7 +72,7 @@ The most common types of DNS records are:
 
 ## Check DNS record
 
-    nslookup ngoclab.com
+    nslookup domain.com
 
 ## Domain Registrar
 
@@ -80,10 +80,19 @@ The most common types of DNS records are:
 - Namecheap
 - Porkbun
 
-## Software candidates
+## Internal DNS Server candidates
 - Pi-hole
 - Technitium DNS
 - Adguard Home
+
+## Dynamic DNS
+
+Dynamic DNS (DDNS) is an extension of DNS that automatically updates IP addresses associated with domain names in real time.
+
+### Provider candidate
+
+- Cloudflare
+- DuckDNS
 
 ## Ref
 - https://www.ibm.com/think/topics/dns-records
