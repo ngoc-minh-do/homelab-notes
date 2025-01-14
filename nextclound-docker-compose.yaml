@@ -11,6 +11,8 @@ services:
       - 9080:80
       - 18080:8080
       - 8443:8443
+    environment:
+      TZ: Asia/Tokyo
     restart: unless-stopped
 
 volumes:

@@ -1,0 +1,16 @@
+name: cloudflared
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    networks:
+      - proxy
+    environment:
+      TZ: Asia/Tokyo
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token $CF_API_TOKEN
+
+networks:
+  proxy:
+    external: true

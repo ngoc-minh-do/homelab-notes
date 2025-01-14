@@ -7,13 +7,13 @@ services:
     networks:
       - proxy
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - $BACKUP_DIR/traefik/etc/traefik:/etc/traefik
       - /docker/traefik/letsencrypt:/letsencrypt
     ports:
       - 80:80
       - 443:443
     environment:
+      TZ: Asia/Tokyo
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
     restart: unless-stopped
 
