@@ -15,7 +15,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
-    restart: unless-stopped
+    restart: always
 
 networks:
   proxy:
