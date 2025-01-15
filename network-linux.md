@@ -11,6 +11,10 @@ Show info
 ```
 ip -c addr show enp0s5
 ```
+Starting and Stopping Interfaces
+
+    # ifdown enp7s0
+    # ifup enp7s0
 
 Config
 ```
@@ -23,17 +27,38 @@ iface lo inet loopback
 
 # The primary network interface
 auto enp0s5
-iface enp0s5  inet static
- address 192.168.2.236
- netmask 255.255.255.0
- gateway 192.168.2.254
- dns-domain sweet.home
- dns-nameservers 192.168.2.254 1.1.1.1 8.8.8.8
+iface enp0s5 inet static
+    address 192.168.0.20/24
+    gateway 192.168.0.1
 ```
+**Note**: Comment out ipv6 setting if you don't want `dhclient` fetching DNS server ipv6
 ```
 sudo systemctl restart networking.service
 ```
 
+## Disable ipv6
+ 
+Add the following at the bottom of the file `/etc/sysctl.conf`
+
+    net.ipv6.conf.all.disable_ipv6 = 1
+    net.ipv6.conf.default.disable_ipv6 = 1
+    net.ipv6.conf.lo.disable_ipv6 = 1
+
+Then run
+
+    sysctl -p
+
+Ref:
+- https://support.nordvpn.com/hc/en-us/articles/20164669224337-How-to-disable-IPv6-on-Linux
+
+## Configure DNS Server - resolv.conf
+To make it use the DHCPv4 protocol to obtain an IPv4 address, dns server...
+
+    dhclient -4
+
+Ref:
+- https://wiki.debian.org/resolv.conf
+- https://manpages.debian.org/bookworm/isc-dhcp-client/dhclient.8.en.html
 ## Trace route
   
 Perform traceroute using specific internet interface
