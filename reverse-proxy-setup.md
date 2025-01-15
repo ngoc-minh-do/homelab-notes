@@ -141,7 +141,9 @@ Add `/etc/traefik/dynamic/something.yaml`
           default-ipAllowList:
             ipAllowList:
               sourceRange:
-                - "192.168.0.0/24"
+                - 127.0.0.1/24
+                - 192.168.0.0/24
+                - 172.22.0.0/24
 
 
 ## Verify proxy without modify host file

@@ -12,6 +12,8 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 81:81
+      - 444:444
     environment:
       TZ: Asia/Tokyo
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
