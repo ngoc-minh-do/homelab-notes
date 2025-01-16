@@ -8,6 +8,7 @@ services:
       - proxy
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
+      - nextcloud_aio_nextcloud_datadir:/fake
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - 18080:8080
@@ -15,8 +16,9 @@ services:
       TZ: Asia/Tokyo
       APACHE_PORT: 11000
       APACHE_IP_BINDING: 0.0.0.0
-      APACHE_ADDITIONAL_NETWORK: "proxy"
+      APACHE_ADDITIONAL_NETWORK: proxy
       SKIP_DOMAIN_VALIDATION: false
+      NEXTCLOUD_DATADIR: nextcloud_aio_nextcloud_datadir
     restart: unless-stopped
 
 volumes:
@@ -25,7 +27,15 @@ volumes:
     driver: local
     driver_opts:
       type: cifs
-      device: $BACKUP_SHARE/nextcloud/mnt/docker-aio-config
+      device: $LINUX_SHARE/docker/nextcloud/mnt/docker-aio-config
+      o: username=$USERNAME,password=$PASSWORD,uid=33,gid=0,file_mode=0770,dir_mode=0770
+
+  nextcloud_aio_nextcloud_datadir:
+    name: nextcloud_aio_nextcloud_datadir
+    driver: local
+    driver_opts:
+      type: cifs
+      device: $LINUX_SHARE/nextcloud
       o: username=$USERNAME,password=$PASSWORD,uid=33,gid=0,file_mode=0770,dir_mode=0770
 
 networks:

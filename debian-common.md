@@ -78,4 +78,4 @@ The dmesg command allows you to review messages stored in the Linux ring buffer,
 |Name|Description|
 |---|---|
 |btop|Resource monitor that shows usage and stats for processor, memory, disks, network and processes|
-|Nvtop|Task monitor for GPUs and accelerators|
+|nvtop|Task monitor for GPUs and accelerators|
