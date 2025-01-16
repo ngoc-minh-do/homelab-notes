@@ -69,6 +69,11 @@ To uninstall package and its dependencies and its configuration
 
     du -h --max-depth=1
 
+## Read booting log
+The dmesg command allows you to review messages stored in the Linux ring buffer, providing insights into hardware errors and startup issues
+
+    dmesg -T
+
 ## Tools
 |Name|Description|
 |---|---|

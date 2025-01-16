@@ -56,6 +56,11 @@ To make it use the DHCPv4 protocol to obtain an IPv4 address, dns server...
 
     dhclient -4
 
+To manual config, make sure there is no dhcp setting on in `/etc/network/interfaces`, modify `/etc/resolv.conf`
+
+    nameserver 192.168.0.1
+    nameserver 8.8.8.8
+
 Ref:
 - https://wiki.debian.org/resolv.conf
 - https://manpages.debian.org/bookworm/isc-dhcp-client/dhclient.8.en.html
