@@ -74,6 +74,11 @@ The dmesg command allows you to review messages stored in the Linux ring buffer,
 
     dmesg -T
 
+## Read `systemd` service log
+
+    sudo journalctl -u <unit-name> -n 100
+    sudo journalctl --since="25-01-17 10:00:00"
+
 ## Tools
 |Name|Description|
 |---|---|

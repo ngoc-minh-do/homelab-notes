@@ -38,6 +38,10 @@ Replace Username and Passwords
 |`uid=100000,gid=110000 | See `Solution` part|
 |`dir_mode=0770,file_mode=0770` | Only that uid/gid will have rwx access to the share. (PVE root user always has rwx to everything.)|
 
+Reload mount unit
+
+    sudo systemctl daemon-reload
+
 ## Mount the NAS to the Proxmox Host
 ```
 mount /mnt/lxc_shares/nas_rwx
