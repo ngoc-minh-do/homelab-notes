@@ -12,8 +12,8 @@ services:
       - TZ=Asia/Tokyo
     volumes:
       - /docker/prowlarr/config:/config
-    ports:
-      - 9696:9696
+    # ports:
+    #   - 9696:9696
     restart: unless-stopped
 
   flaresolverr:
@@ -23,8 +23,8 @@ services:
       - proxy
     environment:
       - TZ=Asia/Tokyo
-    ports:
-      - 8191:8191
+    # ports:
+    #   - 8191:8191
     restart: unless-stopped
 
   radarr:
@@ -40,8 +40,8 @@ services:
       - /docker/radarr/config:/config
       - $MEDIA_DIR/movies:/movies
       - $MEDIA_DIR/downloads:/downloads
-    ports:
-      - 7878:7878
+    # ports:
+    #   - 7878:7878
     restart: unless-stopped
 
   sonarr:
@@ -57,8 +57,8 @@ services:
       - /docker/sonarr/config:/config
       - $MEDIA_DIR/tv-shows:/tv
       - $MEDIA_DIR/downloads:/downloads
-    ports:
-      - 8989:8989
+    # ports:
+    #   - 8989:8989
     restart: unless-stopped
 
   bazarr:
@@ -74,8 +74,8 @@ services:
       - /docker/bazarr/config:/config
       - $MEDIA_DIR/movies:/movies
       - $MEDIA_DIR/tv-shows:/tv
-    ports:
-      - 6767:6767
+    # ports:
+    #   - 6767:6767
     restart: unless-stopped
 
   nordlynx:
@@ -90,8 +90,8 @@ services:
       - PRIVATE_KEY=$NORDVPN_PRIVATE_KEY
       - COUNTRY_CODE=JP
       - NET_LOCAL=192.168.0.0/24
-    ports:
-      - 8090:8090 # qbittorrent
+    # ports:
+    #   - 8090:8090 # qbittorrent
     restart: unless-stopped
 
   qbittorrent:
@@ -127,8 +127,8 @@ services:
     volumes:
       - /docker/sabnzbd/config:/config
       - $MEDIA_DIR/downloads:/downloads
-    ports:
-      - 8091:8080
+    # ports:
+    #   - 8091:8080
     restart: unless-stopped
 
   jellyseerr:
@@ -139,8 +139,8 @@ services:
     environment:
       - LOG_LEVEL=debug
       - TZ=Asia/Tokyo
-    ports:
-      - 5055:5055
+    # ports:
+    #   - 5055:5055
     volumes:
       - /docker/jellyseerr/config:/app/config
     restart: unless-stopped

@@ -8,8 +8,8 @@ services:
       - proxy
     environment:
       TZ: Asia/Tokyo
-    ports:
-      - 9090:9090
+    # ports:
+    #   - 9090:9090
     volumes:
       - /docker/prometheus/etc/prometheus:/etc/prometheus
       - /docker/prometheus/prometheus:/prometheus
@@ -23,6 +23,8 @@ services:
       - proxy
     environment:
       TZ: Asia/Tokyo
+    # ports:
+    #   - 3002:3000
     volumes:
       - /docker/grafana/var/lib/grafana:/var/lib/grafana
     restart: unless-stopped
