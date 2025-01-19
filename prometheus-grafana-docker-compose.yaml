@@ -1,0 +1,33 @@
+name: prometheus-grafana
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    networks:
+      - proxy
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 9090:9090
+    volumes:
+      - /docker/prometheus/etc/prometheus:/etc/prometheus
+      - /docker/prometheus/prometheus:/prometheus
+    restart: unless-stopped
+    user: "$UID:$GID"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    networks:
+      - proxy
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - /docker/grafana/var/lib/grafana:/var/lib/grafana
+    restart: unless-stopped
+    user: "$UID:$GID"
+
+networks:
+  proxy:
+    external: true
