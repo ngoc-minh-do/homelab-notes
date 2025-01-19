@@ -26,9 +26,9 @@ volumes:
     name: nextcloud_aio_mastercontainer
     driver: local
     driver_opts:
-      type: cifs
-      device: $LINUX_SHARE/docker/nextcloud/mnt/docker-aio-config
-      o: username=$USERNAME,password=$PASSWORD,uid=33,gid=0,file_mode=0770,dir_mode=0770
+      type: none
+      device: /docker/nextcloud/mnt/docker-aio-config
+      o: bind
 
   nextcloud_aio_nextcloud_datadir:
     name: nextcloud_aio_nextcloud_datadir

@@ -7,8 +7,8 @@ services:
     networks:
       - proxy
     volumes:
-      - $BACKUP_DIR/traefik/etc/traefik:/etc/traefik
-      - traefik_letsencrypt:/letsencrypt
+      - /docker/traefik/etc/traefik:/etc/traefik
+      - /docker/traefik/letsencrypt:/letsencrypt
     ports:
       - 80:80
       - 443:443
@@ -18,15 +18,6 @@ services:
       TZ: Asia/Tokyo
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
     restart: always
-
-volumes:
-  traefik_letsencrypt:
-    name: traefik_letsencrypt
-    driver: local
-    driver_opts:
-      type: cifs
-      device: $LINUX_SHARE/docker/traefik/letsencrypt
-      o: username=$USERNAME,password=$PASSWORD,file_mode=0600,dir_mode=0600
 
 networks:
   proxy:

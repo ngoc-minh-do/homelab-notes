@@ -14,8 +14,8 @@ services:
     environment:
       TZ: Asia/Tokyo
     volumes:
-      - $BACKUP_DIR/adguardhome/opt/adguardhome/work:/opt/adguardhome/work
-      - $BACKUP_DIR/adguardhome/opt/adguardhome/conf:/opt/adguardhome/conf
+      - /docker/adguardhome/opt/adguardhome/work:/opt/adguardhome/work
+      - /docker/adguardhome/opt/adguardhome/conf:/opt/adguardhome/conf
     restart: always
 
 networks:

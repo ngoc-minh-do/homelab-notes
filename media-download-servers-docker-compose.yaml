@@ -104,7 +104,7 @@ services:
       - WEBUI_PORT=8090
       - TORRENTING_PORT=6881
     volumes:
-      - $BACKUP_DIR/qbittorrent/config:/config
+      - /docker/qbittorrent/config:/config
       - $MEDIA_DIR/downloads:/downloads
     # ports:
     #   - 8090:8090
