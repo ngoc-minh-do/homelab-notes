@@ -9,6 +9,7 @@ services:
     volumes:
       - /docker/traefik/etc/traefik:/etc/traefik
       - /docker/traefik/letsencrypt:/letsencrypt
+      - traefik-logs:/var/log/traefik
     ports:
       - 80:80
       - 443:443
@@ -19,6 +20,30 @@ services:
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
     restart: always
 
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    networks:
+      - proxy
+    volumes:
+      - /docker/crowdsec/var/lib/crowdsec/data:/var/lib/crowdsec/data
+      - /docker/crowdsec/etc/crowdsec:/etc/crowdsec
+      - traefik-logs:/var/log/traefik:ro
+    environment:
+      TZ: Asia/Tokyo
+      GID: "${GID-1000}"
+      COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
+    restart: always
+    depends_on:
+      - traefik
+
+volumes:
+  traefik-logs:
+
 networks:
   proxy:
     external: true
+    # ipam:
+    #   driver: default
+    #   config:
+    #     - subnet: 172.20.0.0/24
