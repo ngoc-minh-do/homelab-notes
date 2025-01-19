@@ -87,6 +87,10 @@ Copy without symbolic links
 Find file by name recursively
 
     find . -iname "foo*"
+
+Unzip
+
+    unzip file.zip -d <directory>
 ## Tools
 |Name|Description|
 |---|---|

@@ -65,7 +65,11 @@ Confirm Nvidia drivers should now be installed
 
     sudo nvidia-smi
 
-# Ref
+## Issue
+Jellyfin somehow cannot access device `/dev/nvidia*` if it not have enough permission at boot in LXC, so I need to implement a workaround by setting up a cron job to execute `nvidia-smi` at boot
+
+    @reboot nvidia-smi > /dev/null 2>&1
+## Ref
 - https://forum.proxmox.com/threads/solved-lxc-unable-to-access-gpu-by-id-mapping-error.145086/
 - https://yomis.blog/nvidia-gpu-in-proxmox-lxc/
 - https://www.reddit.com/r/Proxmox/comments/18xxcbg/cgroup2_how_to_deal_with_device_numbers_changing/

@@ -171,6 +171,10 @@ Check enrolled MOK
 
     mokutil --list-enrolled
 
+## Issue
+Nvidia device `/dev/nvidia*` somehow not loaded at boot, so I need to implement a workaround by setting up a cron job to execute `nvidia-smi` at boot
+
+    @reboot nvidia-smi > /dev/null 2>&1
 ## Ref:
 - https://wiki.debian.org/NvidiaGraphicsDrivers
 - https://www.youtube.com/watch?v=lNGNRIJ708k
