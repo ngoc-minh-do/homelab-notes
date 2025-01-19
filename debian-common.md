@@ -79,6 +79,14 @@ The dmesg command allows you to review messages stored in the Linux ring buffer,
     sudo journalctl -u <unit-name> -n 100
     sudo journalctl --since="25-01-17 10:00:00"
 
+## Other
+Copy without symbolic links
+
+    cp -rfL /source/* /destination/
+
+Find file by name recursively
+
+    find . -iname "foo*"
 ## Tools
 |Name|Description|
 |---|---|

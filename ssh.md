@@ -56,8 +56,14 @@ Connect with private key
 	ssh username@server -i '/path/to/keyfile'
 
 Start SSH agent
+1. On Linux
 
-    eval "$(ssh-agent)"
+        eval "$(ssh-agent)"
+
+2. On Windows
+
+        Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
+        Start-Service ssh-agent
 
 Connect with private key and save authentication information to `ssh-agent`
 

@@ -28,7 +28,7 @@ Add the following line to `/etc/fstab`:
 ```text
 //fileserver.example.co.uk/linux /mnt/linux-share cifs rw,x-systemd.automount,noatime,credentials=/root/.smbcredentials,dir_mode=0775,file_mode=0775,uid=1000,gid=1000 0 0
 ```
-`systemd` will create mount units from `/etc/fstab` on boot.
+`systemd` will create mount units in `/run/systemd/generator/` from `/etc/fstab` on boot.
 
 Reload mount unit
 
