@@ -1,4 +1,4 @@
-name: prometheus-grafana
+name: monitoring
 
 services:
   prometheus:
