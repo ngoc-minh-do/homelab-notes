@@ -50,6 +50,19 @@ services:
       - /dev/kmsg:/dev/kmsg
     restart: unless-stopped
 
+  prometheus-pve-exporter:
+    image: prompve/prometheus-pve-exporter:latest
+    container_name: prometheus-pve-exporter
+    networks:
+      - proxy
+    environment:
+      TZ: Asia/Tokyo
+    # ports:
+    #   - 9221:9221
+    volumes:
+      - /docker/prometheus-pve-exporter/etc/prometheus:/etc/prometheus
+    restart: unless-stopped
+
 networks:
   proxy:
     external: true
