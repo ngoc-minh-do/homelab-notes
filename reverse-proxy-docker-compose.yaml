@@ -1,4 +1,4 @@
-name: proxy
+name: reverse-proxy
 
 services:
   traefik:
@@ -34,8 +34,6 @@ services:
       GID: "${GID-1000}"
       COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
     restart: always
-    depends_on:
-      - traefik
 
 volumes:
   traefik-logs:
