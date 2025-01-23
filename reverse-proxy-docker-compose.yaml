@@ -9,7 +9,7 @@ services:
     volumes:
       - /docker/traefik/etc/traefik:/etc/traefik
       - /docker/traefik/letsencrypt:/letsencrypt
-      - traefik-logs:/var/log/traefik
+      - /var/log/traefik:/var/log/traefik
     ports:
       - 80:80
       - 443:443
@@ -28,15 +28,12 @@ services:
     volumes:
       - /docker/crowdsec/var/lib/crowdsec/data:/var/lib/crowdsec/data
       - /docker/crowdsec/etc/crowdsec:/etc/crowdsec
-      - traefik-logs:/var/log/traefik:ro
+      - /var/log/traefik:/var/log/traefik:ro
     environment:
       TZ: Asia/Tokyo
       GID: "${GID-1000}"
       COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
     restart: always
-
-volumes:
-  traefik-logs:
 
 networks:
   proxy:
