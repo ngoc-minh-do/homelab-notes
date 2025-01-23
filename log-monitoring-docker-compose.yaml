@@ -22,11 +22,9 @@ services:
     environment:
       TZ: Asia/Tokyo
     volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock
       - /docker/promtail/etc/promtail:/etc/promtail
+      - /var/run/docker.sock:/var/run/docker.sock
       - /var/log:/var/log
-      - /run/log:/run/log
     restart: unless-stopped
 
 networks:
