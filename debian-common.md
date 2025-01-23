@@ -79,6 +79,24 @@ The dmesg command allows you to review messages stored in the Linux ring buffer,
     sudo journalctl -u <unit-name> -n 100
     sudo journalctl --since="25-01-17 10:00:00"
 
+## Config log rotate
+Add `/etc/logrotate.d/traefik` file
+
+    compress
+    /var/log/traefik/*.log {
+        size 20M
+        daily
+        rotate 14
+        missingok
+        notifempty postrotate
+        docker kill --signal="USR1" traefik # adjust this line to your traefik container name
+        endscript
+    }
+
+Confirm
+
+    sudo logrotate -d /etc/logrotate.d/traefik
+
 ## Other
 Copy without symbolic links
 
