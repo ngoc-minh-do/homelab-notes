@@ -26,3 +26,15 @@ Update Hub collection, parser, etc...
 
     cscli hub update
     cscli hub upgrade
+
+Add bouncer
+
+    sudo docker exec crowdsec cscli bouncers add traefik-bouncer
+
+Manage notification
+
+    sudo docker exec crowdsec cscli notifications list
+     sudo docker exec crowdsec cscli notifications test email_default
+
+## Refer
+- https://www.crowdsec.net/blog/enhance-docker-compose-security
