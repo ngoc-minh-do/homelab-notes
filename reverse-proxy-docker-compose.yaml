@@ -32,7 +32,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       GID: "${GID-1000}"
-      COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
+      COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules"
     restart: always
 
 networks:

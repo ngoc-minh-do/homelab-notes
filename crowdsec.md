@@ -21,6 +21,7 @@ Manage alert list
 Install Hub collection (parser, etc...)
 
     cscli collections install crowdsecurity/linux
+    cscli collections list
 
 Update Hub collection, parser, etc...
 
@@ -38,3 +39,4 @@ Manage notification
 
 ## Refer
 - https://www.crowdsec.net/blog/enhance-docker-compose-security
+- https://docs.crowdsec.net/docs/appsec/quickstart
