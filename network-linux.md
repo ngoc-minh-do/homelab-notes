@@ -61,6 +61,13 @@ To manual config, make sure there is no dhcp setting on in `/etc/network/interfa
     nameserver 192.168.0.1
     nameserver 8.8.8.8
 
+Confirm
+
+    ip route
+    nslookup google.com
+    traceroute google.com
+    dig google.com
+
 Ref:
 - https://wiki.debian.org/resolv.conf
 - https://manpages.debian.org/bookworm/isc-dhcp-client/dhclient.8.en.html
@@ -99,6 +106,11 @@ To scan all hostname in local network use `avahi`
 - Run
 
       avahi-browse -art
+
+## Check listing port
+
+    sudo lsof -i -P -n
+    less /etc/services
 
 ## Multicast DNS (mDNS)
 To setup mDNS
