@@ -12,17 +12,13 @@
 
 1. System
 
-        Machine: q35 (Secure boot)
+        Machine: q35
         Bios: OVMF (UEFI)
 
 1. Disks
 
-        Bus/Device: VirtIO Block
-
-    According to same test, `VirtIO Block` faster than `SCSI`.
-
-    Refer: https://forum.proxmox.com/threads/virtio-vs-scsi.52893/
-
+        Bus/Device: SCSI
+        Disk size (GiB): Appropriate number
 1. CPU
 
         Cores: 4
@@ -35,3 +31,13 @@
 1. Network
 
     Appropriate Setting
+
+1. Confirm and Start VM
+1. (Optional) Disable secure boot
+
+        Hit `Esc` while the boot splash screen is visible
+        Select `Device Manager`
+        Select `Secure Boot Configuration`
+        Uncheck `Attempt Secure Boot`
+        Select Continue
+        Select Restart
