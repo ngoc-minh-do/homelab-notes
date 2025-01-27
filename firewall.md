@@ -6,11 +6,9 @@ iptables
 
 TODO
 
-## Network Firewall
+## Physical/Virtual firewall
 
-TODO
-
-### Software candidates
+Software candidates
 - pfSense
 - OPNsense
 - MikroTik

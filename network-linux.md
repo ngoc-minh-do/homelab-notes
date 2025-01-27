@@ -16,6 +16,11 @@ Starting and Stopping Interfaces
     # ifdown enp7s0
     # ifup enp7s0
 
+Force an Interface release & request new ip from DHCP server
+
+    sudo dhclient -r <interface>
+    sudo dhclient <interface>
+
 Config
 ```
 sudo vi /etc/network/interfaces
