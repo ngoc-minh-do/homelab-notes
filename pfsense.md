@@ -1,4 +1,8 @@
-# Pfsense
+# pfSense
+
+## Installation guide for install on Proxmox
+
+https://docs.netgate.com/pfsense/en/latest/recipes/virtualize-proxmox-ve.html
 
 ## Allow access from Wan
 Option 1: Using `Shell`, from console select option 8
