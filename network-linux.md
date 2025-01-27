@@ -128,13 +128,10 @@ To scan all hostname in local network use `avahi`
 
 ## Manage route
 
-    ip route show
-    sudo ip route add {NETWORK/MASK} dev {DEVICE}
-    sudo ip route del {NETWORK/MASK} dev {DEVICE}
-    sudo ip route add default {NETWORK/MASK} dev {DEVICE}
-    sudo ip route add default {NETWORK/MASK} via {GATEWAYIP}
+    ip route add {NETWORK} via {IP} dev {DEVICE}
+    sudo ip route add 89.187.160.1/32 via 192.168.1.1 dev enp6s16
 
-Ref: https://www.cyberciti.biz/faq/ip-route-add-network-command-for-linux-explained/
+Ref: https://www.cyberciti.biz/tips/configuring-static-routes-in-debian-or-red-hat-linux-systems.html/
 
 ## Ping using specific NIC
 
