@@ -35,6 +35,10 @@ Option 2: Modify /conf/config.xml
       </system>
     </pfsense>
 
+Run `rm /tmp/config.cache` to clear the configuration cache
+
+From console select option 11 `restart webConfigurator`
+
 Ref:
 - https://docs.netgate.com/pfsense/en/latest/services/dns/rebinding.html#gui-protection
 - https://docs.netgate.com/pfsense/en/latest/config/xml-configuration-file.html#edit-in-place

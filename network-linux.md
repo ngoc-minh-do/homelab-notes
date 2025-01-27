@@ -117,6 +117,43 @@ To scan all hostname in local network use `avahi`
     sudo lsof -i -P -n
     less /etc/services
 
+## Test connection to a website by fetching web content from CLI
+
+    curl -L $url
+    wget -O - $url
+
+## Find current default gateway
+
+    ip route show 0.0.0.0/0
+
+## Manage route
+
+    ip route show
+    sudo ip route add {NETWORK/MASK} dev {DEVICE}
+    sudo ip route del {NETWORK/MASK} dev {DEVICE}
+    sudo ip route add default {NETWORK/MASK} dev {DEVICE}
+    sudo ip route add default {NETWORK/MASK} via {GATEWAYIP}
+
+Ref: https://www.cyberciti.biz/faq/ip-route-add-network-command-for-linux-explained/
+
+## Ping using specific NIC
+
+    ping google.com -I enp6s16
+
+## Test real network speed
+
+Install `iperf3`
+
+    apt install iperf3
+
+Find a `iperf3 server` address on google, then test speed by
+
+    iperf3 -c <iperf3 server>
+    iperf3 -c <iperf3 server><device>
+    iperf3 -c 89.187.160.1%enp6s16
+
+Ref: https://iperf2.sourceforge.io/iperf-manpage.html
+
 ## Multicast DNS (mDNS)
 To setup mDNS
 
@@ -125,8 +162,3 @@ To setup mDNS
     sudo systemctl enable avahi-daemon
 
 Then we can use `<hostname>.local` to access
-
-## Test connection to a website by fetching web content from CLI
-
-    curl -L $url
-    wget -O - $url
