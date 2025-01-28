@@ -16,7 +16,7 @@ Starting and Stopping Interfaces
     # ifdown enp7s0
     # ifup enp7s0
 
-Force an Interface release & request new ip from DHCP server
+Force an Interface release & request new ip from DHCP server for specific interface
 
     sudo dhclient -r <interface>
     sudo dhclient <interface>
@@ -36,10 +36,37 @@ iface enp0s5 inet static
     address 192.168.0.20/24
     gateway 192.168.0.1
 ```
-**Note**: Comment out ipv6 setting if you don't want `dhclient` fetching DNS server ipv6
+**NOTE** 
+- If setting multiple interfaces with static ip, `gateway` properties should be defined for 1 interface only 
+- If `RTNETLINK answers: file exists` error shown, try bellow command to clear assigned ip address
+  
+        sudo ip addr flush <interface>
+
 ```
 sudo systemctl restart networking.service
 ```
+## Setting DNS
+To make it use the DHCPv4 protocol to obtain dns servers address
+
+    sudo dhclient -4
+
+To manual config DNS, modify `/etc/resolv.conf`
+
+    nameserver 192.168.0.1
+    nameserver 8.8.8.8
+
+**NOTE**: Make sure there is no interface with dhcp setting in `/etc/network/interfaces`, otherwise this file will be overwritten 
+
+Confirm DNS
+
+    ip route
+    nslookup google.com
+    traceroute google.com
+    dig google.com
+
+Ref:
+- https://wiki.debian.org/resolv.conf
+- https://manpages.debian.org/bookworm/isc-dhcp-client/dhclient.8.en.html
 
 ## Disable ipv6
  
@@ -56,26 +83,36 @@ Then run
 Ref:
 - https://support.nordvpn.com/hc/en-us/articles/20164669224337-How-to-disable-IPv6-on-Linux
 
-## Configure DNS Server - resolv.conf
-To make it use the DHCPv4 protocol to obtain an IPv4 address, dns server...
+## Manage route
 
-    dhclient -4
+Find current default gateway
 
-To manual config, make sure there is no dhcp setting on in `/etc/network/interfaces`, modify `/etc/resolv.conf`
+    ip route show 0.0.0.0/0
+Manage route
 
-    nameserver 192.168.0.1
-    nameserver 8.8.8.8
+    ip route add {NETWORK} via {IP} dev {DEVICE}
+    sudo ip route add 89.187.160.1/32 via 192.168.1.1 dev enp6s16
 
-Confirm
+Ref: https://www.cyberciti.biz/tips/configuring-static-routes-in-debian-or-red-hat-linux-systems.html/
 
-    ip route
-    nslookup google.com
-    traceroute google.com
-    dig google.com
+## Ping using specific NIC
 
-Ref:
-- https://wiki.debian.org/resolv.conf
-- https://manpages.debian.org/bookworm/isc-dhcp-client/dhclient.8.en.html
+    ping google.com -I enp6s16
+
+## Test real network speed
+
+Install `iperf3`
+
+    apt install iperf3
+
+Find a `iperf3 server` address on google, then test speed by
+
+    iperf3 -c <iperf3 server>
+    iperf3 -c <iperf3 server><device>
+    iperf3 -c 89.187.160.1%enp6s16
+
+Ref: https://iperf2.sourceforge.io/iperf-manpage.html
+
 ## Trace route
   
 Perform traceroute using specific internet interface
@@ -121,35 +158,6 @@ To scan all hostname in local network use `avahi`
 
     curl -L $url
     wget -O - $url
-
-## Find current default gateway
-
-    ip route show 0.0.0.0/0
-
-## Manage route
-
-    ip route add {NETWORK} via {IP} dev {DEVICE}
-    sudo ip route add 89.187.160.1/32 via 192.168.1.1 dev enp6s16
-
-Ref: https://www.cyberciti.biz/tips/configuring-static-routes-in-debian-or-red-hat-linux-systems.html/
-
-## Ping using specific NIC
-
-    ping google.com -I enp6s16
-
-## Test real network speed
-
-Install `iperf3`
-
-    apt install iperf3
-
-Find a `iperf3 server` address on google, then test speed by
-
-    iperf3 -c <iperf3 server>
-    iperf3 -c <iperf3 server><device>
-    iperf3 -c 89.187.160.1%enp6s16
-
-Ref: https://iperf2.sourceforge.io/iperf-manpage.html
 
 ## Multicast DNS (mDNS)
 To setup mDNS
