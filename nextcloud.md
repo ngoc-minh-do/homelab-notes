@@ -16,11 +16,10 @@
 
         Could not check that the data directory is protected. Please check manually that your server does not allow access to the data directory. To allow this check to run you have to make sure that your Web server can connect to itself. Therefore it must be able to resolve and connect to at least one of its `trusted_domains` or the `overwrite.cli.url`. This failure may be the result of a server-side DNS mismatch or outbound firewall rule.
 
-    Reason could be it failed to resolve domain name inside container. To fix, on `nextcloud-aio-nextcloud` container, modify `/etc/hosts` add host name resolution:
-
-        192.168.x.x    nextcloud.domain.com
-
-    Confirm by `curl -i -X PROPFIND https://my.domain.org/remote.php/webdav`
+    Reason could be it failed to resolve domain name inside container.
+    Confirm by
+    - `curl -i -X PROPFIND https://my.domain.org/remote.php/webdav`
+    - `nslookup my.domain.org`
 
 1. WebUI's Logging show `"xxx" is locked, existing lock on file: exclusive"`
 
@@ -32,3 +31,10 @@
     Then, run:
 
         sudo -u www-data php occ files:scan --all
+
+1. To test if Nextcloud client is using `notify_push`
+
+        sudo -u www-data php occ notify_push:metrics
+        sudo -u www-data php occ notification:test-push <user-id>
+        sudo -u www-data php occ notification:generate <user-id> <message>
+    Then check notification on mobile app
