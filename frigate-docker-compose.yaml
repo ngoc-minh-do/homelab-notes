@@ -2,9 +2,8 @@ name: frigate
 
 services:
   frigate:
-    container_name: frigate
-    restart: unless-stopped
     image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
+    container_name: frigate
     shm_size: 128mb
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
@@ -30,6 +29,7 @@ services:
       FRIGATE_RTSP_PASSWORD: $FRIGATE_RTSP_PASSWORD
       FRIGATE_LIVING_CAMERA_IP: $FRIGATE_LIVING_CAMERA_IP
       FRIGATE_TAPO_PASSWORD: $FRIGATE_TAPO_PASSWORD
+    restart: unless-stopped
     deploy: # NVIDIA GPU (need install NVIDIA Container Toolkit before deploy)
       resources:
         reservations:
