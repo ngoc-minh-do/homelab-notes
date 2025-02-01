@@ -1,11 +1,8 @@
-name: reverse-proxy
-
 services:
   traefik:
     image: traefik:latest
-    container_name: traefik
     networks:
-      - proxy
+      - reverse-proxy
     volumes:
       - /docker/traefik/etc/traefik:/etc/traefik
       - /docker/traefik/letsencrypt:/letsencrypt
@@ -18,13 +15,18 @@ services:
     environment:
       TZ: Asia/Tokyo
       CF_DNS_API_TOKEN_FILE: $CF_DNS_API_TOKEN_FILE
-    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: any
 
   crowdsec:
     image: crowdsecurity/crowdsec:latest
-    container_name: crowdsec
     networks:
-      - proxy
+      - reverse-proxy
     volumes:
       - /docker/crowdsec/var/lib/crowdsec/data:/var/lib/crowdsec/data
       - /docker/crowdsec/etc/crowdsec:/etc/crowdsec
@@ -33,12 +35,19 @@ services:
       TZ: Asia/Tokyo
       GID: "${GID-1000}"
       COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules"
-    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: any
 
 networks:
-  proxy:
-    external: true
+  reverse-proxy:
+    driver: overlay
+    attachable: true
     ipam:
       driver: default
       config:
-        - subnet: 172.25.0.0/24
+        - subnet: 10.0.10.0/24
