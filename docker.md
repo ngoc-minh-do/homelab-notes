@@ -1,5 +1,14 @@
 # Docker
 
+Create volume
+
+    docker volume create hello
+    docker volume create --name hello \
+        --driver local \
+        --opt type=none \
+        --opt device=/hello \
+        --opt o=bind
+
 ## Docker Swarm
 On Manager node
 
