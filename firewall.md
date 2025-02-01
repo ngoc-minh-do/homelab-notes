@@ -2,9 +2,9 @@
 
 ## Linux Firewall
 
-iptables
+List rules
 
-TODO
+    iptables -S
 
 ## Physical/Virtual firewall
 
