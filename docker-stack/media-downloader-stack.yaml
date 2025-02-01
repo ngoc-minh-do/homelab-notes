@@ -1,11 +1,8 @@
-name: media-download-servers
-
 services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -14,24 +11,34 @@ services:
       - /docker/prowlarr/config:/config
     # ports:
     #   - 9696:9696
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - TZ=Asia/Tokyo
     # ports:
     #   - 8191:8191
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -42,13 +49,18 @@ services:
       - $MEDIA_DIR/downloads:/downloads
     # ports:
     #   - 7878:7878
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -59,13 +71,18 @@ services:
       - $MEDIA_DIR/downloads:/downloads
     # ports:
     #   - 8989:8989
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -76,27 +93,39 @@ services:
       - $MEDIA_DIR/tv-shows:/tv
     # ports:
     #   - 6767:6767
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
-  nordlynx:
-    image: ghcr.io/bubuntux/nordlynx:latest
-    container_name: nordlynx
-    networks:
-      - proxy
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - TZ=Asia/Tokyo
-      - PRIVATE_KEY=$NORDVPN_PRIVATE_KEY
-      - COUNTRY_CODE=JP
-      - NET_LOCAL=192.168.0.0/24
-    # ports:
-    #   - 8090:8090 # qbittorrent
-    restart: unless-stopped
+  # nordlynx:
+  #   image: ghcr.io/bubuntux/nordlynx:latest
+  #   networks:
+  #     - reverse-proxy
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - TZ=Asia/Tokyo
+  #     - PRIVATE_KEY=$NORDVPN_PRIVATE_KEY
+  #     - COUNTRY_CODE=JP
+  #     - NET_LOCAL=192.168.0.0/24
+  #   # ports:
+  #   #   - 8090:8090 # qbittorrent
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #     placement:
+  #       constraints: [node.hostname == docker-01]
+  #     restart_policy:
+  #       condition: on-failure
 
   qbittorrent:
-    container_name: qbittorrent
     image: lscr.io/linuxserver/qbittorrent:latest
+    networks:
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -110,16 +139,21 @@ services:
     #   - 8090:8090
     #   - 6881:6881
     #   - 6881:6881/udp
-    restart: unless-stopped
-    network_mode: service:nordlynx
-    depends_on:
-      - nordlynx
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
+    # network_mode: service:nordlynx
+    # depends_on:
+    #   - nordlynx
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
-    container_name: sabnzbd
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -129,22 +163,33 @@ services:
       - $MEDIA_DIR/downloads:/downloads
     # ports:
     #   - 8091:8080
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
     networks:
-      - proxy
+      - reverse-proxy
     environment:
       - LOG_LEVEL=debug
       - TZ=Asia/Tokyo
     # ports:
     #   - 5055:5055
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.hostname == docker-01]
+      restart_policy:
+        condition: on-failure
     volumes:
       - /docker/jellyseerr/config:/app/config
-    restart: unless-stopped
 
 networks:
-  proxy:
+  reverse-proxy:
     external: true

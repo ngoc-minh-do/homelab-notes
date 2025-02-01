@@ -45,9 +45,10 @@ services:
 
 networks:
   reverse-proxy:
-    driver: overlay
-    attachable: true
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.10.0/24
+    external: true
+    # driver: overlay
+    # attachable: true
+    # ipam:
+    #   driver: default
+    #   config:
+    #     - subnet: 10.0.10.0/24
