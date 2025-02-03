@@ -18,6 +18,10 @@ Manage alert list
     cscli alert inspect 123
     cscli alert delete 123
 
+Show acquisition
+
+    sudo docker exec crowdsec cscli metrics show acquisition
+
 Install Hub collection (parser, etc...)
 
     cscli collections install crowdsecurity/linux
