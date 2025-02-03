@@ -1,5 +1,3 @@
-authenlia
-authentik
 bookstack/wikijs
 uptime-kuma/snmp_exporter/LibreNMS
 - openVPN/wireguard/Headscale/Tailscale 
@@ -7,3 +5,4 @@ uptime-kuma/snmp_exporter/LibreNMS
 - Argo CD/ Flux CD
 - Kubernetes
 - Ansible
+- GreyLog/Syslog
