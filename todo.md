@@ -8,3 +8,5 @@ uptime-kuma/snmp_exporter/LibreNMS
 - Ansible
 - GreyLog/Syslog
 - ZITADEL 
+- wazuh
+- bunkerweb
