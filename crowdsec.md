@@ -39,7 +39,7 @@ Add bouncer
 Manage notification
 
     sudo docker exec crowdsec cscli notifications list
-     sudo docker exec crowdsec cscli notifications test email_default
+    sudo docker exec crowdsec cscli notifications test email_default
 
 ## Refer
 - https://www.crowdsec.net/blog/enhance-docker-compose-security
