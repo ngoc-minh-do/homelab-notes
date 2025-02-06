@@ -10,3 +10,4 @@ uptime-kuma/snmp_exporter/LibreNMS
 - ZITADEL 
 - wazuh
 - bunkerweb
+- Ollama and open-webui 
