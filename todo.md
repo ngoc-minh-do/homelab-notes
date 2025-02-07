@@ -8,4 +8,3 @@ snmp_exporter/LibreNMS
 - GreyLog/Syslog
 - wazuh
 - bunkerweb
-- Ollama and open-webui 
