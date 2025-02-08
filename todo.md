@@ -1,4 +1,5 @@
 bookstack/wikijs
+- obsidian/logseq
 snmp_exporter/LibreNMS
 - openVPN/wireguard
 - Moonlight (client) &/ Sunshine(host)/Parsec for Gaming remotely
