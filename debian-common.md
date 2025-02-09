@@ -114,3 +114,18 @@ Unzip
 |---|---|
 |btop|Resource monitor that shows usage and stats for processor, memory, disks, network and processes|
 |nvtop|Task monitor for GPUs and accelerators|
+
+## Send log to remote server using Syslog
+Install `rsyslog`
+
+    apt update && apt install rsyslog
+
+Setting `rfc5424` log format for forwarding. Modify `/etc/rsyslog.conf`
+
+    $ActionForwardDefaultTemplate RSYSLOG_SyslogProtocol23Format
+
+Add forwarding config
+
+     echo '*.* @@remote-host:port' > /etc/rsyslog.d/promtail.conf
+
+Note: `@` for UDP, `@@` for TCP protocol
