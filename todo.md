@@ -1,4 +1,5 @@
 - bookstack/wikijs
+- Hugo/Docusaurus
 - obsidian/logseq
 - snmp_exporter/LibreNMS
 - openVPN/wireguard
