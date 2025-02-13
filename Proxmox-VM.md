@@ -57,6 +57,16 @@
         Select Continue
         Select Restart
 
+## Post install (Windows)
+- Install the **Guest Agent** from the VirtIO Win ISO: `guest-agent\qemu-ga-x86_64.msi`.
+- Install the driver from the VirtIO Win ISO: `virtio-win-gt-x64.msi`. Check for any missing drivers. If found, select **Update Driver**, then specify the VirtIO Win ISO location
+- (Optional) Install `virtio-win-guest-tools.exe` if you want all at one (**Drivers**, **Guest Agent**, **SPICE Agent**...)
+- Activate Windows.
+- Update Windows.
+- Enable **Remote Desktop**: *Settings > System > Remote Desktop*. (If using a Microsoft account, login with a password is required.)
+- Configure a static IP.
+
 ## Ref
 - https://pve.proxmox.com/wiki/Windows_10_guest_best_practices
 - https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm
+- https://docs.redhat.com/en/documentation/red_hat_virtualization/4.4/html/virtual_machine_management_guide/installing_guest_agents_and_drivers_windows
