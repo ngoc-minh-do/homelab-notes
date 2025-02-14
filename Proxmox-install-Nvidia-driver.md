@@ -172,7 +172,7 @@ Check enrolled MOK
     mokutil --list-enrolled
 
 ## Issue
-Nvidia device `/dev/nvidia*` somehow not loaded at boot, so I need to implement a workaround by setting up a cron job to execute `nvidia-smi` at boot
+Nvidia device `/dev/nvidia*` somehow not loaded at boot, so I need to implement a workaround by setting up a cron job (or systemd service) to execute `nvidia-smi` at boot
 
     @reboot nvidia-smi > /dev/null 2>&1
 ## Ref:
