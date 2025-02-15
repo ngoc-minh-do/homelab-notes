@@ -45,7 +45,14 @@ Create a configuration file `/etc/modprobe.d/vfio.conf` to specify the PCI IDs t
 
     options vfio-pci ids=10de:2504,10de:228e disable_vga=1
     # For Nvidia
+    softdep nvidiafb pre: vfio-pci
+    softdep nouveau pre: vfio-pci
+    softdep nvidia_drm pre: vfio-pci
     softdep nvidia pre: vfio-pci
+    softdep snd_hda_intel pre: vfio-pci
+
+**NOTE**:
+- To get the list of modules need to be include in above config, run `lspci -nnk | grep -A 3 'NVIDIA'` and check `Kernel modules:` line
 
 ## Refresh your initramfs
 
@@ -70,11 +77,12 @@ Confirm Remapping:
 
 To check if the VFIO modules are being loaded
 
-    dmesg | grep -i vfio
+    lsmod | grep -i vfio
 
 Confirm current `Kernel driver in use`. Should be `vfio-pci` or the line is missing entirely
 
     lspci -nnk | grep -A 3 'NVIDIA'
+    lspci -v
 
 ## Setting VM
 
