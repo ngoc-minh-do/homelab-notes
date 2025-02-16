@@ -1,5 +1,3 @@
-- bookstack/wikijs
-- Hugo/Docusaurus
 - openVPN/wireguard
 - Argo CD/ Flux CD
 - Kubernetes
