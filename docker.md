@@ -42,3 +42,19 @@ Create overlay network
       --subnet 10.0.10.0/24 \
       --attachable \
       reverse-proxy
+
+## Compose
+
+    docker compose up -d
+    docker compose up -d --force-recreate
+    docker compose up -d --force-recreate --build
+
+Options:
+- `-d`: detach mode
+- `--force-recreate`: Force recreate container
+- `--build`: force the container to be rebuilt, use full when container is build from `dockerfile`
+
+Destroy
+
+    docker compose down
+    docker compose -p <compose-name> down
