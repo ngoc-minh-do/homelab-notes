@@ -2,4 +2,4 @@
 - Argo CD/ Flux CD
 - Kubernetes
 - Ansible
-- tcpdump/Wireshark
+- Hostinger/bluehost/A2 hosting
