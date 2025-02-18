@@ -48,17 +48,19 @@ sudo apt purge --auto-remove cuda-*
 ## Before installing, we need to install bellow packages
 ```
 apt install build-essential
+apt install proxmox-default-headers
 apt install proxmox-headers-$(uname -r)
 apt install software-properties-common
 apt install dkms
 ```
 
-|Package|Description|
-|---|---|
-|build-essential|to install `gcc`, required by Nvidia driver|
-|software-properties-common|to use `add-apt-repository` command|
-|proxmox-headers-$(uname -r)|Linux kernel headers package required for Nvidia driver. The NVIDIA kernel module has a kernel interface layer that must be compiled specifically for each kernel|
-|dkms|registering the kernel module with DKMS|
+| Package                     | Description                                                                                                                                                       |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| build-essential             | to install `gcc`, required by Nvidia driver                                                                                                                       |
+| software-properties-common  | to use `add-apt-repository` command                                                                                                                               |
+| proxmox-headers-$(uname -r) | Linux kernel headers package required for Nvidia driver. The NVIDIA kernel module has a kernel interface layer that must be compiled specifically for each kernel |
+| proxmox-default-headers     | Meta package pointing to latest headers, useful for next kernel upgrade                                                                                           |
+| dkms                        | registering the kernel module with DKMS                                                                                                                           |
 
 Because the NVIDIA module is separate from the kernel, it must be rebuilt with Dynamic Kernel Module Support (DKMS) for each new kernel update.
 To set up DKMS, you must install the headers package for the kernel and the DKMS helper package.
@@ -113,9 +115,7 @@ hash_algo=sha256
 private_key=/root/nvidia-driver.key
 x509_cert=/root/nvidia-driver.der
 
-prefix=/usr/src/kernels/
-# For Debian/Ubuntu, use
-#prefix=/usr/src/linux-headers-
+prefix=/usr/src/linux-headers-
 
 "${prefix}${1}/scripts/sign-file" \
   "${hash_algo}" "${private_key}" "${x509_cert}" "${2}" \
