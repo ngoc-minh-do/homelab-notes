@@ -71,9 +71,9 @@ The most common types of DNS records are:
     Text, or TXT records, store textual information related to domains and subdomains. Text records allow for the storage of SPF records and email verification records. DKIM and DMARC records, which are stored in TXT records, help email servers confirm that a message is coming from a reliable source.
 
 ## Check DNS record
-
-    nslookup domain.com
-
+```
+nslookup domain.com
+```
 ## Domain Registrar
 
 - Cloudflare
@@ -86,14 +86,14 @@ The most common types of DNS records are:
 - Adguard Home
 
 **NOTE**: When using docker container, we have to mapping port using specific host IP in order to make domain resolution work in other containers
-
-    services:
-      xxx:
-        ...
-        ports:
-          - 192.168.0.xxx:53:53/tcp
-          - 192.168.0.xxx:53:53/udp
-
+```
+services:
+  xxx:
+    ...
+	ports:
+	  - 192.168.0.xxx:53:53/tcp
+	  - 192.168.0.xxx:53:53/udp
+```
 ## Dynamic DNS
 
 Dynamic DNS (DDNS) is an extension of DNS that automatically updates IP addresses associated with domain names in real time.

@@ -1,20 +1,5 @@
 # Debian common command
 
-## Change timezone
-Check current time, timezone
-```
-date
-timedatectl
-cat /etc/localtime
-```
-List all available time zones
-```
-timedatectl list-timezones
-```
-Set time zone
-```
-sudo timedatectl set-timezone Asia/Tokyo
-```
 ## List users
 ```
 cat /etc/passwd
@@ -23,80 +8,88 @@ cat /etc/passwd
 ```
 cat /etc/group
 ```
-
 ## Add user
-
-    sudo adduser username
+```
+sudo adduser username
+```
 Next, you will be prompted to provide the user’s password. Once you have provided and confirmed the password, you will be required to provide additional information about the user, such as full name, room number, work phone, and home phone. Fill in the information where applicable, or hit ENTER to skip.
 
 Add user to `sudo` group
-
-    usermod -aG sudo username
-
+```
+usermod -aG sudo username
+```
 ## Remove user
-
-    userdel -r username
+```
+userdel -r username
+```
 
 `-r` is for delete user's home directory and mail spool
 
 ## Apt
 
 Find package dependencies
-
-    apt-cache depends <package>
+```
+apt-cache depends <package>
+```
 
 Find package dependent
-
-    apt-cache rdepends <package>
+```
+apt-cache rdepends <package>
+```
 
 Remove package
-
-    apt remove <package-name>
+```
+apt remove <package-name>
+```
 
 Remove package and its configuration
-
-    apt purge <package-name>
+```
+apt purge <package-name>
+```
 
 To uninstall package and its dependencies
-
-    apt autoremove <package-name>
+```
+apt autoremove <package-name>
+```
 
 To uninstall package and its dependencies and its configuration
-
-    apt autoremove --purge <package-name>
-    apt purge --autoremove <package-name>
+```
+apt autoremove --purge <package-name>
+apt purge --autoremove <package-name>
+```
 ## Get size of all files/directories in current directory
-
-    du -h --max-depth=1
-
+```
+du -h --max-depth=1
+```
 ## Read booting log
 The dmesg command allows you to review messages stored in the Linux ring buffer, providing insights into hardware errors and startup issues
-
-    dmesg -T
-
+```
+dmesg -T
+```
 ## Read `systemd` service log
-
-    sudo journalctl -u <unit-name> -n 100
-    sudo journalctl --since="25-01-17 10:00:00"
-
+```
+sudo journalctl -u <unit-name> -n 100
+sudo journalctl --since="25-01-17 10:00:00"
+```
 ## Config log rotate
 Add `/etc/logrotate.d/traefik` file
-
-    compress
-    /var/log/traefik/*.log {
-        size 20M
-        daily
-        rotate 14
-        missingok
-        notifempty postrotate
-        docker kill --signal="USR1" traefik # adjust this line to your traefik container name
-        endscript
-    }
+```
+compress
+/var/log/traefik/*.log {
+	size 20M
+	daily
+	rotate 14
+	missingok
+	notifempty postrotate
+	docker kill --signal="USR1" traefik # adjust this line to your traefik container name
+	endscript
+}
+```
 
 Confirm
-
-    sudo logrotate -d /etc/logrotate.d/traefik
-
+```
+sudo logrotate -d /etc/logrotate.d/traefik
+```
 ## `top` command
 
 - Arrow keys & page up/down: Navigate through the displayed list in the Task area.
@@ -111,19 +104,21 @@ Confirm
 - c: By pressing c, the 'Command' column shows the entire path from which the processes were started.
 - shift + v: Shows the parent / child process hierarchy.
 - k: Prompts for a process ID and closes the specified process. By default, SIGTERM is used for a graceful shutdown of the process. For a forced shutdown, you use SIGKILL.
-
 ## Other
 Copy without symbolic links
-
-    cp -rfL /source/* /destination/
+```
+cp -rfL /source/* /destination/
+```
 
 Find file by name recursively
-
-    find . -iname "foo*"
+```
+find . -iname "foo*"
+```
 
 Unzip
-
-    unzip file.zip -d <directory>
+```
+unzip file.zip -d <directory>
+```
 ## Tools
 | Name  | Description                                                                                     |
 | ----- | ----------------------------------------------------------------------------------------------- |

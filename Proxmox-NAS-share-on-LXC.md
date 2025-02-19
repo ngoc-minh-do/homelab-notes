@@ -49,9 +49,11 @@ mount /mnt/lxc_shares/nas_rwx
 
 ## Add Bind Mount of the Share to the LXC Config
 You can mount it in the LXC with read+write+execute (rwx) permissions in `/etc/pve/lxc/LXC_ID.conf`
-
-    mp0: /mnt/lxc_shares/nas_rwx/,mp=/mnt/nas
+```
+mp0: /mnt/lxc_shares/nas_rwx/,mp=/mnt/nas
+```
 
 You can also mount it in the LXC with read-only (ro) permissions.
-
-    mp0: /mnt/lxc_shares/nas_rwx/,mp=/mnt/nas,ro=1
+```
+mp0: /mnt/lxc_shares/nas_rwx/,mp=/mnt/nas,ro=1
+```

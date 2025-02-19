@@ -1,8 +1,9 @@
 # ssh
 
 ## ssh-keygen
-
-    ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
 
 Options:
 
@@ -41,50 +42,59 @@ Options:
 |SSH-1 (RSA)|768 - 2048|Low to Moderate|Slow|Secure Shell (SSH)|Initial SSH protocol.|Deprecated, vulnerable.|
 
 ## ssh client
-
-	apt install openssh-client
+```
+apt install openssh-client
+```
 Client configuration file
 
 	/etc/ssh/ssh_config.d/*.conf
 
 Connect with password
-
-	ssh $remote_user@$remote_host
+```
+ssh $remote_user@$remote_host
+```
 
 Connect with private key
-
-	ssh username@server -i '/path/to/keyfile'
+```
+ssh username@server -i '/path/to/keyfile'
+```
 
 Start SSH agent
 1. On Linux
+```
+eval "$(ssh-agent)"
+```
 
-        eval "$(ssh-agent)"
-
-2. On Windows
-
-        Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
-        Start-Service ssh-agent
+1. On Windows
+```
+Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
+Start-Service ssh-agent
+```
 
 Connect with private key and save authentication information to `ssh-agent`
-
-	ssh username@server -i '/path/to/keyfile' -o AddKeysToAgent=yes
+```
+ssh username@server -i '/path/to/keyfile' -o AddKeysToAgent=yes
+```
 
 Add your private key to SSH agent
-
-    ssh-add
-    ssh-add ~/.ssh/id_ed25519
+```
+ssh-add
+ssh-add ~/.ssh/id_ed25519
+```
 
 To check saved key
-
-    ssh-add -l
+```
+ssh-add -l
+```
 
 Otherway is set it in `~/.ssh/config`.
 Other useful option is:
-
-    AddKeysToAgent yes              # as mention before
-    IdentityFile ~/.ssh/xxx         # to specific private key if needed
-    LogLevel DEBUG                  # to check log
-    UseKeychain yes                 # for mac
+```
+AddKeysToAgent yes              # as mention before
+IdentityFile ~/.ssh/xxx         # to specific private key if needed
+LogLevel DEBUG                  # to check log
+UseKeychain yes                 # for mac
+```
 
 We can also set friendly name for each host in `~/.ssh/config`
 
@@ -93,40 +103,44 @@ We can also set friendly name for each host in `~/.ssh/config`
 - https://man7.org/linux/man-pages/man5/ssh_config.5.html
 
 ## ssh server
-
-	apt install openssh-server
-Server configuration file
-
-	/etc/ssh/sshd_config.d/*.conf
+```
+apt install openssh-server
+```
+Server configuration file:  `/etc/ssh/sshd_config.d/*.conf`
 
 **NOTE**: Make sure bellow line exist in `/etc/ssh/sshd_config`
-
-	Include /etc/ssh/sshd_config.d/*.conf
+```
+Include /etc/ssh/sshd_config.d/*.conf
+```
 
 Save client's public key to below file
-
-    vi /home/user_name/.ssh/authorized_keys
+```
+vi /home/user_name/.ssh/authorized_keys
+```
 
 Set
-
-    chmod 700 /home/user_name/.ssh
-    chmod 600 /home/user_name/.ssh/authorized_keys
-    chown -R username:username /home/username/.ssh
+```
+chmod 700 /home/user_name/.ssh
+chmod 600 /home/user_name/.ssh/authorized_keys
+chown -R username:username /home/username/.ssh
+```
 `-R` is recursive
 
 Check log
-
-    journalctl -u ssh -n 50
+```
+journalctl -u ssh -n 50
+```
 
 ### Disable password login
 Signing in as root is typically achieved by signing in as your normal user id then using `sudo`
 
 Create new config file, for example `/etc/ssh/sshd_config.d/disable_password_login.conf`
-
-    PasswordAuthentication no
-    ChallengeResponseAuthentication no
-    UsePAM no
-    PermitRootLogin no
+```
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM no
+PermitRootLogin no
+```
 
 Where,
 - `ChallengeResponseAuthentication` – State whether challenge-response authentication is allowed or not via PAM.
@@ -135,31 +149,34 @@ Where,
 - `PermitRootLogin` – Specifies whether root can log in using ssh or not.
 
 Reload
-
-	systemctl reload sshd
-	# CentOS
-	systemctl reload ssh #
-
+```
+systemctl reload sshd
+# CentOS
+systemctl reload ssh #
+```
 ## sudo
 
 - `sudo`: Super User DO
 - `su`: Substitute User
 
 Switch to user. 
-
-	su - <user>
-	sudo -iu <user>
+```
+su - <user>
+sudo -iu <user>
+```
 
 Switch to root
-
-	su -
-	sudo -i
+```
+su -
+sudo -i
+```
 
 **NOTE**: 
 - `sudo` uses the current users' password [default config]. `su` uses the password of the user you're [trying to] run as.
 - `sudo -i` keep inherit `env`
 
 Check current user
-
-	whoami
+```
+whoami
+```
 
