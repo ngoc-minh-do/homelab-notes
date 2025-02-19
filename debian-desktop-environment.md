@@ -13,6 +13,8 @@ sudo reboot
 
 ## (Optional) Install remote desktop
 
+**NOTE**: 
+If you're trying to remote desktop into an LXC container in Proxmox, it's better to enable the `FUSE` feature for improved compatibility and functionality.
 ### Install `Xrdp`
 ```
 sudo apt install xrdp -y
