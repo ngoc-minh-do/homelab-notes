@@ -22,4 +22,4 @@ qm set 100 -scsi3 /dev/disk/by-id/ata-ST2000DM006-2DM164_Z5610A2V,serial=Z5610A2
 cat /etc/pve/qemu-server/100.conf
 ```
 **NOTE**:
-Also add `,backup=0` if you want to tell proxmox these volume out of proxmox's backup job
+Also add `,backup=0` if you want to tell proxmox that these volumes are out of proxmox's backup job
