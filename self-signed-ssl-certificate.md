@@ -3,11 +3,11 @@
 TLS/SSL functions by a combination of a public certificate and a private key. The SSL key is kept secret on the server and encrypts content sent to clients. The SSL certificate is publicly shared with anyone requesting the content. It can be used to decrypt the content signed by the associated SSL key.
 
 You can create a self-signed key and certificate pair with OpenSSL in a single command:
-
-    openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 \
-    -nodes -keyout example.com.key -out example.com.crt -subj "/CN=example.com" \
-    -addext "subjectAltName=DNS:example.com,DNS:*.example.com,IP:10.0.0.1"
-
+```
+openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 \
+-nodes -keyout example.com.key -out example.com.crt -subj "/CN=example.com" \
+-addext "subjectAltName=DNS:example.com,DNS:*.example.com,IP:10.0.0.1"
+```
 Here’s a breakdown of what each part of this command does:
 - `req`: PKCS#10 certificate request and certificate generating command.
 - `-x509`: This option outputs a certificate instead of a certificate request.
@@ -21,15 +21,15 @@ Here’s a breakdown of what each part of this command does:
 - `-addext`: Add a specific extension to the certificate. Here we added Subject Alternate Name (SAN)
 
 Checking the contents of the private key
-
-    openssl rsa -in example.com.key -noout -text
-    openssl pkey -in example.com.key -check -noout
-
+```
+openssl rsa -in example.com.key -noout -text
+openssl pkey -in example.com.key -check -noout
+```
 Checking the contents of the certificate
-
-    openssl x509 -in example.com.crt -noout -text
-    openssl x509 -in example.com.crt -subject -noout
-
+```
+openssl x509 -in example.com.crt -noout -text
+openssl x509 -in example.com.crt -subject -noout
+```
 If `You cannot visit right now because the website uses HSTS` error shown, consider to change public TLD (Top-Level Domain)
 
 ## Ref:

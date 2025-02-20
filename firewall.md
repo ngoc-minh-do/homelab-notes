@@ -3,9 +3,9 @@
 ## Linux Firewall
 
 List rules
-
-    iptables -S
-
+```
+iptables -S
+```
 ## Physical/Virtual firewall
 
 Software candidates

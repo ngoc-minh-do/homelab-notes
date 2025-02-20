@@ -1,13 +1,13 @@
 # Frigate
 
 Get `ffmpeg` run by Frigate
-
-    ps -eo args | grep ffmpeg --color
-
+```
+ps -eo args | grep ffmpeg --color
+```
 Check your camera stream (video resolution, audio codec...)
-
-    ffprobe rtsp://127.0.0.1:8554/your_stream
-
+```
+ffprobe rtsp://127.0.0.1:8554/your_stream
+```
 ## Tapo 2 way audio
 
 Ref:

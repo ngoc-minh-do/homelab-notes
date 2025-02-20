@@ -9,6 +9,10 @@ docker volume create --name hello \
     --opt device=/hello \
     --opt o=bind
 ```
+Execute a command in container
+```
+sudo docker exec <container-name> <program-name> <argument>
+```
 ## Docker Swarm
 On Manager node
 ```

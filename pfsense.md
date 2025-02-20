@@ -6,14 +6,13 @@ https://docs.netgate.com/pfsense/en/latest/recipes/virtualize-proxmox-ve.html
 
 ## Allow access from Wan
 Option 1: Using `Shell`, from console select option 8
-
-    pfSsh.php playback enableallowallwan
-
-
+```
+pfSsh.php playback enableallowallwan
+```
 Option 2: Using `PHP Shell`, from console select option 8
-
-    playback enableallowallwan
-
+```
+playback enableallowallwan
+```
 After done with access from Wan, remove the “allow all” rule from the WAN
 
 Ref:
@@ -26,15 +25,15 @@ Option 1: Using Web GUI
     Define additional hostnames under `System > Advanced, Admin Access` tab in the `Alternate Hostnames` field
 
 Option 2: Modify /conf/config.xml
-
-    <pfsense>
-      <system>
-        <webgui>
-          <althostnames>pfsense.example.com</althostnames>
-        </webgui>
-      </system>
-    </pfsense>
-
+```
+<pfsense>
+  <system>
+    <webgui>
+      <althostnames>pfsense.example.com</althostnames>
+    </webgui>
+  </system>
+</pfsense>
+```
 Run `rm /tmp/config.cache` to clear the configuration cache
 
 From console select option 11 `restart webConfigurator`

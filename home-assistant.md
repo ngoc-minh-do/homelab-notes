@@ -1,16 +1,16 @@
-# Home assistant
+# Home assistant as VM on Proxmox
 
 ## Prepare image
 Copy link of KVM file from HA website
 
 In proxmox
-
-    wget <ADDRESS>
-
+```
+wget <ADDRESS>
+```
 Expand the compressed image
-
-    unxz </path/to/file.qcow2.xz>
-
+```
+unxz </path/to/file.qcow2.xz>
+```
 ## Create VM
 
 - OS:
@@ -29,13 +29,13 @@ Confirm and finish. Do not start the VM yet.
 ## Add the image to the VM
 
 In console, use the following command to import the image from the host to the VM
-
-    qm importdisk <VM ID> </path/to/file.qcow2> <EFI location>
-
+```
+qm importdisk <VM ID> </path/to/file.qcow2> <EFI location>
+```
 For example,
-
-    qm importdisk 205 /home/user/haos_ova-12.0.qcow2 local-lvm
-
+```
+qm importdisk 205 /home/user/haos_ova-12.0.qcow2 local-lvm
+```
 In proxmox Web, select your HA VM
 - Go to the 'Hardware' tab
 - Select the 'Unused Disk' and click the 'Edit' button
@@ -49,7 +49,7 @@ Finish Up
 - Start the VM
 - When `proxmox` logo showup, hit ESC, disable `secure boot`. Restart
 - Check the shell of the VM. If it booted up correctly, you should be greeted with the link to access the Web UI.
-- Navigate to <VM IP>:8123
+- Navigate to `<VM IP>:8123`
 
 Done. Everything should be up and running now.
 
@@ -57,7 +57,7 @@ Done. Everything should be up and running now.
 
 ### Sesame
 
-/homeassistant/configuration.yaml
+`/homeassistant/configuration.yaml`
 ```yaml
 sensor:
   - platform: rest
@@ -89,16 +89,17 @@ lock:
       service: shell_command.unlock_entrance_lock
 ```
 `sesame.py` location:
-
-    /homeassistant/scripts/sesame.py
-
+```
+/homeassistant/scripts/sesame.py
+```
 Assign permission
-
-    sudo chmod 755 /etc/homeassistant/bin/sesame
+```
+sudo chmod 755 /etc/homeassistant/bin/sesame
+```
 Try
-
-    /etc/homeassistant/bin/sesame --help
-
+```
+/etc/homeassistant/bin/sesame --help
+```
 Ref:
 - https://document.candyhouse.co/demo/webapi-en
 - https://www.home-assistant.io/integrations/sensor.rest/

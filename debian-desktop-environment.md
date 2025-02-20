@@ -63,8 +63,10 @@ rm ./google-chrome-stable_current_amd64.deb
 ```
 ### Enable sound when using xrdp
 - pulseaudio-module-xrdp
+
 	https://github.com/neutrinolabs/pulseaudio-module-xrdp
 - xRDP installer script
+
 	https://www.c-nergy.be/products.html
 ## Reference
 - https://phoenixnap.com/kb/debian-remote-desktop

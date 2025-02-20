@@ -179,4 +179,3 @@ Check current user
 ```
 whoami
 ```
-
