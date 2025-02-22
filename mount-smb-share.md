@@ -39,6 +39,7 @@ sudo systemctl daemon-reload
 ```shell
 sudo mount -a
 ```
+**NOTE**: Add ` -o remount` option if need remount
 ## Make a service wait for mount
 
 Check service status & service file location
