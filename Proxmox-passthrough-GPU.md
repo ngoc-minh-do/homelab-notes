@@ -102,3 +102,4 @@ PCIe: Check
 - https://pve.proxmox.com/wiki/PCI_Passthrough#Verifying_IOMMU_parameters
 - https://pve.proxmox.com/pve-docs/pve-admin-guide.html#qm_pci_passthrough_vm_config
 - https://forum.proxmox.com/threads/pci-gpu-passthrough-on-proxmox-ve-8-installation-and-configuration.130218/
+- https://wiki.archlinux.org/title/Kernel_parameters#GRUB

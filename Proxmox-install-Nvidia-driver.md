@@ -183,6 +183,14 @@ Check enrolled MOK
 ```
 mokutil --list-enrolled
 ```
+
+### Reference:
+- https://wiki.debian.org/NvidiaGraphicsDrivers
+- https://www.youtube.com/watch?v=lNGNRIJ708k
+- https://github.com/dell/dkms#secure-boot
+- https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9
+- https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE
+- https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/installdriver.html
 ## Enable persistence mode
 
 Nvidia device nodes (`/dev/nvidia*`) are not loaded at boot. Additionally, when they are no longer in use, the NVIDIA kernel driver deactivates the device state.
@@ -212,13 +220,51 @@ systemctl enable --now nvidia-persistenced
 Confirm
 ```
 systemctl status nvidia-persistenced
+ls -lah /dev/nvidia*
 ```
-## Ref:
-- https://wiki.debian.org/NvidiaGraphicsDrivers
-- https://www.youtube.com/watch?v=lNGNRIJ708k
-- https://github.com/dell/dkms#secure-boot
-- https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9
-- https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE
-- https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/installdriver.html
+### Reference:
 - https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/nvidia-persistenced.html
 - https://docs.nvidia.com/deploy/driver-persistence/index.html#persistence-daemon
+
+## (Optional) Enable DRM kernel mode
+This step is useful if you want to use GUI in LXC container later
+
+**DRM (Direct Rendering Manager) Kernel Mode** is a component of the Linux kernel that manages graphics cards and allows direct rendering to the display.
+
+Allows user-space applications (like X11, Wayland, or games) to communicate directly with the GPU while ensuring security and proper resource management.
+
+#### Method 1:
+Add `/etc/modprobe.d/nvidia-drm.conf`
+```
+options nvidia-drm modeset=1
+```
+Refresh your initramfs and reboot. 
+```
+update-initramfs -u -k all
+sudo reboot
+```
+
+#### Method 2:
+Modify `/etc/default/grub`, append bellow value to `GRUB_CMDLINE_LINUX_DEFAULT` variable
+```
+ nvidia-drm.modeset=1
+```
+Then run
+```sh
+update-grub
+```
+
+### Confirm
+
+To verify that DRM is actually enabled, execute the following:
+```sh
+cat /sys/module/nvidia_drm/parameters/modeset
+```
+Which should now return `Y`, and not `N`.
+### Reference:
+- https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/kms.html
+- https://wiki.archlinux.org/title/NVIDIA#DRM_kernel_mode_setting
+- https://wiki.archlinux.org/title/Kernel_mode_setting
+- https://en.wikipedia.org/wiki/Direct_Rendering_Manager
+- https://wiki.archlinux.org/title/Kernel_module#Using_modprobe
+- https://wiki.archlinux.org/title/Kernel_parameters#GRUB

@@ -44,3 +44,4 @@ dev0: /dev/dri/card0,gid=44,uid=0
 
 ## Reference
 [Proxmox-share-GPU-multiple-LXC](Proxmox-share-GPU-multiple-LXC.md)
+https://wiki.debian.org/LXC#Bind_mounts_inside_the_container
