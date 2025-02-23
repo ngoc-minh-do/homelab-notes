@@ -5,6 +5,7 @@ You simply mount the CIFS share to the UID that belongs to the unprivileged LXC 
 But instead of also mounting it to the GID of the LXC root user, your are going to create a group in your LXC called lxc_cifs_shares with a gid=10000 which refers to gid=110000 on the PVE host.
 PVE host (UID=100000/GID=110000) <--> unprivileged LXC (UID=0/GID=10000)
 ```
+https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
 ## On LXC Create User Group
 ```
 groupadd -g 10000 lxc_shares

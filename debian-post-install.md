@@ -25,4 +25,4 @@ sudo timedatectl set-timezone Asia/Tokyo
 ```
 ## Create user
 
-Refer [[debian-common#Add user]]
+Refer [Add user](debian-common.md#Add%20user)

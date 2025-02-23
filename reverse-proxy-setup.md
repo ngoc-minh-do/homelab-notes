@@ -11,7 +11,7 @@
 ## Reverse Proxy with Self signed SSL certificate
 
 ### Create Self signed SSL certificate
-Refer to [[self-signed-ssl-certificate]]
+Refer to [self-signed-ssl-certificate](self-signed-ssl-certificate.md)
 
 ### Using nginx
 

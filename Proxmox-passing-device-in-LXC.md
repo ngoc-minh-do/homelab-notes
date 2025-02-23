@@ -43,4 +43,4 @@ dev0: /dev/dri/card0,gid=44,uid=0
 - `uid` (optional): specifies the user ID of the user who owns the device inside container
 
 ## Reference
-[[Proxmox-share-GPU-multiple-LXC]]
+[Proxmox-share-GPU-multiple-LXC](Proxmox-share-GPU-multiple-LXC.md)

@@ -183,10 +183,35 @@ Check enrolled MOK
 ```
 mokutil --list-enrolled
 ```
-## Issue
-Nvidia device `/dev/nvidia*` somehow not loaded at boot, so I need to implement a workaround by setting up a cron job (or systemd service) to execute `nvidia-smi` at boot
+## Enable persistence mode
+
+Nvidia device nodes (`/dev/nvidia*`) are not loaded at boot. Additionally, when they are no longer in use, the NVIDIA kernel driver deactivates the device state.
+
+Enabling Nvidia persistence mode keeps the NVIDIA character device files open, preventing the kernel driver from deactivating the device state when no other process is using the device.
+
+Create `/etc/systemd/system/nvidia-persistenced.service`
 ```
-@reboot nvidia-smi > /dev/null 2>&1
+[Unit]
+Description=NVIDIA Persistence Daemon
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/nvidia-persistenced --verbose
+ExecStartPost=/usr/bin/nvidia-smi
+ExecStopPost=/bin/rm -rf /var/run/nvidia-persistenced
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Activate
+```sh
+systemctl enable --now nvidia-persistenced
+```
+
+Confirm
+```
+systemctl status nvidia-persistenced
 ```
 ## Ref:
 - https://wiki.debian.org/NvidiaGraphicsDrivers
@@ -194,3 +219,6 @@ Nvidia device `/dev/nvidia*` somehow not loaded at boot, so I need to implement 
 - https://github.com/dell/dkms#secure-boot
 - https://gist.github.com/lijikun/22be09ec9b178e745758a29c7a147cc9
 - https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE
+- https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/installdriver.html
+- https://us.download.nvidia.com/XFree86/Linux-x86_64/550.54.14/README/nvidia-persistenced.html
+- https://docs.nvidia.com/deploy/driver-persistence/index.html#persistence-daemon

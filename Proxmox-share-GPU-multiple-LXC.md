@@ -1,8 +1,4 @@
 # Share GPU between multiple LXC
-## Unprivileged LXC containers
-https://pve.proxmox.com/wiki/Unprivileged_LXC_containers
-
-These kind of containers use a new kernel feature called user namespaces. All of the UIDs (user id) and GIDs (group id) are mapped to a different number range than on the host machine, usually root (uid 0) became uid 100000, 1 will be 100001 and so on
 ## Find Group Numbers. Focus on video(44), render(104) groups
 ```
 cat /etc/group
@@ -35,24 +31,46 @@ Reboot LXC and check group name in LXC, make sure it same as host
 ```
 ls -l /dev/dri
 ```
-## For NVIDIA GPU in LXC
-After install NVIDIA GPU on Host, additional devices need to be mapped in the container.
 
+*For more information, refer: [Proxmox-passing-device-in-LXC](Proxmox-passing-device-in-LXC.md)*
+## For NVIDIA GPU in LXC
+
+### Passing Nvidia device node to LXC container
+
+#### Method 1:
+Add below line to `/etc/pve/lxc/*.conf` to share those devices.
+```
+dev3: /dev/nvidia0
+dev4: /dev/nvidiactl
+dev5: /dev/nvidia-modeset
+dev6: /dev/nvidia-uvm
+dev7: /dev/nvidia-uvm-tools
+dev8: /dev/nvidia-caps/nvidia-cap1
+dev9: /dev/nvidia-caps/nvidia-cap2
+```
+
+#### Method 2 (old way):
 List all NVIDIA GPU devices, determine major device, minor device number
 ```
 ls -al /dev/nvidia*
 ```
 
-Then add below line to `/etc/pve/lxc/*.conf` to share those devices.
+Change major device number according to your and add below line to `/etc/pve/lxc/*.conf` to share those devices.
 ```
-dev3: /dev/nvidia0
-dev4: /dev/nvidiactl
-dev5: /dev/nvidia-uvm
-dev6: /dev/nvidia-uvm-tools
-dev7: /dev/nvidia-caps/nvidia-cap1
-dev8: /dev/nvidia-caps/nvidia-cap2
+lxc.cgroup2.devices.allow: c 195:* rwm
+lxc.cgroup2.devices.allow: c 234:* rwm
+lxc.cgroup2.devices.allow: c 237:* rwm
+lxc.mount.entry: /dev/nvidia0 dev/nvidia0 none bind,optional,create=file
+lxc.mount.entry: /dev/nvidiactl dev/nvidiactl none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-modeset dev/nvidia-modeset none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-caps dev/nvidia-caps none bind,optional,create=dir
 ```
-**NOTE**: Include `/dev/nvidia-modeset` if exist.
+
+*For more information, refer: [Proxmox-passing-device-in-LXC](Proxmox-passing-device-in-LXC.md)*
+
+### Install Nvidia driver in LXC Container
 
 With this all setup and the container rebooted, the same installer for the Nvidia drivers on the Proxmox host will need to be run on the container. To get the installer into the container, the following command can be used. I have put this in the root user directory of the container.
 ```
