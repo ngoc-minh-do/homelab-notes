@@ -172,7 +172,7 @@ sudo -i
 ```
 
 **NOTE**: 
-- `sudo` uses the current users' password [default config]. `su` uses the password of the user you're [trying to] run as.
+- `sudo` uses the current users' password default config. `su` uses the password of the user you're trying to run as.
 - `sudo -i` keep inherit `env`
 
 Check current user
