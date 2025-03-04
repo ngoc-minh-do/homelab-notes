@@ -98,6 +98,12 @@ UseKeychain yes                 # for mac
 
 We can also set friendly name for each host in `~/.ssh/config`
 
+For Linux, to keep `ssh-agent` running, add bellow line to `~/.bashrc` or `~/.zshrc`
+```sh
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_personal
+```
+
 **Ref**
 - https://man7.org/linux/man-pages/man1/ssh.1.html
 - https://man7.org/linux/man-pages/man5/ssh_config.5.html

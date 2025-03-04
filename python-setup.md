@@ -96,7 +96,7 @@ poetry add <package-name>
 ```
 Install dependencies from existing `pyproject.toml`
 ```
-poetry intall
+poetry install
 ```
  Searches for packages on remote repositories.
 ```
