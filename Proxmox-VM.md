@@ -65,8 +65,15 @@
 - Update Windows.
 - Enable **Remote Desktop**: *Settings > System > Remote Desktop*. (If using a Microsoft account, login with a password is required.)
 - Configure a static IP.
+## Post install (Linux)
+```shell
+sudo apt install qemu-guest-agent
+sudo systemctl start qemu-guest-agent
+sudo systemctl enable qemu-guest-agent
+```
 
 ## Ref
 - https://pve.proxmox.com/wiki/Windows_10_guest_best_practices
 - https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm
 - https://docs.redhat.com/en/documentation/red_hat_virtualization/4.4/html/virtual_machine_management_guide/installing_guest_agents_and_drivers_windows
+- [Qemu-guest-agent - Proxmox VE](https://pve.proxmox.com/wiki/Qemu-guest-agent)

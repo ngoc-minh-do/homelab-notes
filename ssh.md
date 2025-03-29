@@ -101,7 +101,7 @@ We can also set friendly name for each host in `~/.ssh/config`
 For Linux, to keep `ssh-agent` running, add bellow line to `~/.bashrc` or `~/.zshrc`
 ```sh
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_personal
+ssh-add ~/.ssh/id_ed25519
 ```
 
 **Ref**
