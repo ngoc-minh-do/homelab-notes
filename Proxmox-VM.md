@@ -65,12 +65,6 @@
 - Update Windows.
 - Enable **Remote Desktop**: *Settings > System > Remote Desktop*. (If using a Microsoft account, login with a password is required.)
 - Configure a static IP.
-## Post install (Linux)
-```shell
-sudo apt install qemu-guest-agent
-sudo systemctl start qemu-guest-agent
-sudo systemctl enable qemu-guest-agent
-```
 
 ## Ref
 - https://pve.proxmox.com/wiki/Windows_10_guest_best_practices
