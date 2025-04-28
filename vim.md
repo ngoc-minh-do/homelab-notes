@@ -1,5 +1,6 @@
 # Vim
 
-Remove all lines
-
-    :%d
+| :%d | Remove all lines |
+| --- | ---------------- |
+| Y   | Copy             |
+| P   | Paste            |

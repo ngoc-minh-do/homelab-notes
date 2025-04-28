@@ -1,5 +1,12 @@
 - openVPN/wireguard
+- immich
+- tinyauth
 - Argo CD/ Flux CD
+- GitLab CI/CD
+- GitHub Actions + act
+- Concourse
+- GitTea + Drone
+- Jenkins
 - Kubernetes
 - Ansible
 - Hostinger/bluehost/A2 hosting
