@@ -1,5 +1,4 @@
 - openVPN/wireguard
-- immich
 - tinyauth
 - Argo CD/ Flux CD
 - GitLab CI/CD

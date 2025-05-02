@@ -58,11 +58,6 @@ apt autoremove --purge <package-name>
 apt purge --autoremove <package-name>
 ```
 
-## Check disk usage/remaining space
-```shell
-df -hT
-```
-
 ## Get size of all files/directories in current directory
 ```
 du -h --max-depth=1
