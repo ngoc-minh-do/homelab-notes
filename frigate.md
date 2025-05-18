@@ -6,7 +6,8 @@ ps -eo args | grep ffmpeg --color
 ```
 Check your camera stream (video resolution, audio codec...)
 ```
-ffprobe rtsp://127.0.0.1:8554/your_stream
+/usr/lib/ffmpeg/7.0/bin/ffprobe rtsp://127.0.0.1:8554/your_stream
+docker exec frigate bash -c "/usr/lib/ffmpeg/7.0/bin/ffprobe rtsp://127.0.0.1:8554/your_stream"
 ```
 ## Tapo 2 way audio
 
