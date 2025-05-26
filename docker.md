@@ -13,6 +13,11 @@ Execute a command in container
 ```
 sudo docker exec <container-name> <program-name> <argument>
 ```
+
+Show docker disk usage
+```sh
+docker system df
+```
 ## Docker Swarm
 On Manager node
 ```
