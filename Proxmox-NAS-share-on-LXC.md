@@ -13,7 +13,7 @@ mkdir -p /mnt/linux
 
 Add NAS CIFS share to `/etc/fstab`
 ```
-//<nas-ip-address>/linux /mnt/linux cifs _netdev,x-systemd.automount,noatime,credentials=/root/.smbcredentials,uid=101000,gid=101000,dir_mode=0770,file_mode=0770 0 0
+//<nas-ip-address>/linux /mnt/linux cifs _netdev,x-systemd.automount,noatime,mfsymlinks,credentials=/root/.smbcredentials,uid=101000,gid=101000,dir_mode=0770,file_mode=0770 0 0
 ```
 
 | Config                         | Description                                                                                        |
@@ -23,6 +23,7 @@ Add NAS CIFS share to `/etc/fstab`
 | `noatime`                      | Access timestamps are not updated when a file/folder is read.                                      |
 | `uid=101000,gid=101000`        | map to user in LXC container                                                                       |
 | `dir_mode=0770,file_mode=0770` | Only that uid/gid will have rwx access to the share. (PVE root user always has rwx to everything.) |
+| `mfsymlinks`                   | Enable support for symlinks                                                                        |
 Reload mount unit
 ```sh
 sudo systemctl daemon-reload
